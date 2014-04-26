@@ -8,7 +8,7 @@ public class DayFrequency extends Frequency {
     private static final StreakUnit unit = StreakUnit.DAY;
 
 	@Override
-	public boolean occursWithinPeriod(EventLog log, Calendar timeInsidePeriod) {
+	public boolean eventOccursWithinPeriod(EventLog log, Calendar timeInsidePeriod) {
 		return log.containsEventInDay(
 				timeInsidePeriod.get(Calendar.YEAR),
 				timeInsidePeriod.get(Calendar.MONTH),

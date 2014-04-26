@@ -15,14 +15,14 @@ public class LengthStreakCalculator implements StreakCalculator {
     @Override
     public Streak getCurrentStreak(EventLog log) {
         Calendar now = Calendar.getInstance();
-        boolean hasLatestEventBeenDone = freq.occursWithinPeriod(log, now);
+        boolean hasLatestEventBeenDone = freq.eventOccursWithinPeriod(log, now);
         
         int streakLength = hasLatestEventBeenDone ? 1 : 0;
         boolean inStreak = true;
         Calendar instant = now;
         freq.setToPreviousPeriod(instant);
         while(inStreak && instant.after(log.getStartDate())) {
-            if(freq.occursWithinPeriod(log, instant)) {
+            if(freq.eventOccursWithinPeriod(log, instant)) {
                 streakLength++;
             } else {
                 break;
