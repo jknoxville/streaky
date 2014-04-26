@@ -31,10 +31,17 @@ public class StreakCalculatorTest {
     public StreakCalculatorTest(StreakCalculator calc) throws Exception {
         this.calculator = calc;
         tests = new LinkedList<CalcTestCase>();
-        EventLog log1 = new MockEventLog("100010110110110111110110101111");
-        CalcTestCase test1 = new CalcTestCase(log1);
-        test1.setCurrentStreak(4);
-        tests.add(test1);
+       
+        tests.add(new CalcTestCase("0").setCurrentStreak(0));
+        tests.add(new CalcTestCase("1").setCurrentStreak(1));
+        tests.add(new CalcTestCase("01").setCurrentStreak(1));
+        tests.add(new CalcTestCase("00").setCurrentStreak(0));
+        tests.add(new CalcTestCase("10").setCurrentStreak(1));
+        tests.add(new CalcTestCase("11").setCurrentStreak(2));
+        tests.add(new CalcTestCase("101001101001").setCurrentStreak(1));
+        tests.add(new CalcTestCase("00000111110").setCurrentStreak(5));
+        tests.add(new CalcTestCase("0110100100111100").setCurrentStreak(0));
+        tests.add(new CalcTestCase("100010110110110111110110101111").setCurrentStreak(4));
     }
     
     @Before
@@ -46,8 +53,8 @@ public class StreakCalculatorTest {
     public void testGetCurrentStreak() {
         for(CalcTestCase testCase: tests) {
             Streak streak = calculator.getCurrentStreak(testCase.log);
-            assertEquals(StreakUnit.DAY, streak.unit);
-            assertEquals(testCase.currentStreak, streak.amount);
+            assertEquals("Testcase: "+testCase.logString, StreakUnit.DAY, streak.unit);
+            assertEquals("Testcase: "+testCase.logString, testCase.currentStreak, streak.amount);
         }
         
     }
@@ -66,11 +73,15 @@ public class StreakCalculatorTest {
     public class CalcTestCase {
         public EventLog log;
         public int currentStreak;
-        public CalcTestCase(EventLog log) {
+        public String logString;
+        public CalcTestCase(String logString) throws Exception {
+            EventLog log = new MockEventLog(logString);
             this.log = log;
+            this.logString = logString;
         }
-        public void setCurrentStreak(int expectedValue) {
+        public CalcTestCase setCurrentStreak(int expectedValue) {
             this.currentStreak = expectedValue;
+            return this;
         }
     }
 
