@@ -27,6 +27,7 @@ public class LengthStreakCalculator implements StreakCalculator {
             } else {
                 break;
             }
+            freq.setToPreviousPeriod(instant);
         }
         return new Streak(streakLength, freq);
     }

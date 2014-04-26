@@ -18,7 +18,7 @@ public class DayFrequency extends Frequency {
 
     @Override
     public void setToPreviousPeriod(Calendar cal) {
-        cal.add(Calendar.DAY_OF_MONTH, NUM_DAYS);
+        cal.add(Calendar.DAY_OF_MONTH, -NUM_DAYS);
     }
 
     @Override
