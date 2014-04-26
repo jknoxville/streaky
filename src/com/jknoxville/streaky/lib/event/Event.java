@@ -2,21 +2,14 @@ package com.jknoxville.streaky.lib.event;
 
 import java.util.Calendar;
 
-public class Event implements Comparable<Event> {
-	
-	private final Calendar calendar;
-	
-	public Event() {
-		calendar = Calendar.getInstance();
-	}
+public class Event {
+    private final Calendar calendar;
 
-	@Override
-	public int compareTo(Event other) {
-		return this.calendar.compareTo(other.calendar);
-	}
-	
-	Calendar getCalendar() {
-		return calendar;
-	}
+    public Event(Calendar cal) {
+        calendar = cal;
+    }
 
+    Calendar getCalendar() {
+        return calendar;
+    }
 }
