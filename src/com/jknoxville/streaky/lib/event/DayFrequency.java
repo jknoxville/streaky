@@ -11,8 +11,7 @@ public class DayFrequency extends Frequency {
 	public boolean eventOccursWithinPeriod(EventLog log, Calendar timeInsidePeriod) {
 		return log.containsEventInDay(
 				timeInsidePeriod.get(Calendar.YEAR),
-				timeInsidePeriod.get(Calendar.MONTH),
-				timeInsidePeriod.get(Calendar.WEEK_OF_MONTH),
+				timeInsidePeriod.get(Calendar.WEEK_OF_YEAR),
 				timeInsidePeriod.get(Calendar.DAY_OF_WEEK));
 	}
 
