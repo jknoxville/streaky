@@ -18,10 +18,5 @@ public class Event implements Comparable<Event> {
 	Calendar getCalendar() {
 		return calendar;
 	}
-	
-	public boolean isSameDayAs(Event otherEvent) {
-		return (this.calendar.YEAR == otherEvent.calendar.YEAR) &&
-			   (this.calendar.DAY_OF_YEAR == otherEvent.calendar.DAY_OF_YEAR);
-	}
 
 }
