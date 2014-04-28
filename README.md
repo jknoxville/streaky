@@ -1,5 +1,5 @@
 # Streaky
-### An android app for continuous monitoring of achievements so you don't lose momentum
+### An android app for continuous monitoring of achievements
 
 #### Initial basic functions
 * Create new activity
