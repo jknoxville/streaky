@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import static org.junit.Assert.assertEquals;
 
 public class EventLog {
 	
@@ -49,7 +48,6 @@ public class EventLog {
 	    List<Event> daysEvents;
 	    if(daysInMonth.containsKey(dayOfMonth) && daysInWeek.containsKey(dayOfWeek)) {
 	        daysEvents = daysInWeek.get(dayOfWeek);
-	        assertEquals(daysEvents, daysInMonth.get(dayOfMonth));
 	    } else {
             daysEvents = new LinkedList<Event>();
 	        daysInMonth.put(dayOfMonth, daysEvents);
