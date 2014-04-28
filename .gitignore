@@ -1,4 +1,9 @@
 .classpath
 .project
-.settings/*
+lib/.settings/*
+android/.settings/*
 lib/bin/*
+android/bin/*
+android/gen/*
+android/libs
+

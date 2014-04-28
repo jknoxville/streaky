@@ -1,0 +1,89 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dashboard_background"
+    android:gravity="center_vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".DashboardActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/dashboard_item" >
+
+            <LinearLayout
+                android:id="@+id/itemTopBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:gravity="center_vertical" >
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/running" >
+                </ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Running"
+                    android:textSize="25dp"
+                    android:textColor="#4C4C4C"
+                    android:paddingLeft="5dp" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp"
+                android:paddingBottom="7dp" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12 Days"
+                    android:textSize="30dp"
+                    android:textColor="#4C4C4C"
+                    android:layout_alignParentTop="true" />
+                
+                <TextView 
+                    android:id="@+id/achievement1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New PB"
+                    android:layout_below="@id/textView1"
+                    android:background="@drawable/achievement_icon"
+                    android:textColor="#FCFCFC"
+                    android:padding="3dp"
+                    android:layout_margin="2dp" />
+                <TextView 
+                    android:id="@+id/achievement2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Best In Month"
+                    android:layout_below="@id/textView1"
+                    android:layout_toRightOf="@id/achievement1"
+                    android:background="@drawable/achievement_icon"
+                    android:textColor="#FCFCFC"
+                    android:padding="3dp"
+                    android:layout_margin="2dp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
