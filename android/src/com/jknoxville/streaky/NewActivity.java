@@ -1,10 +1,12 @@
 package com.jknoxville.streaky;
 
-import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 public class NewActivity extends Activity {
 
@@ -14,21 +16,23 @@ public class NewActivity extends Activity {
         setContentView(R.layout.activity_new);
         // Show the Up button in the action bar.
         setupActionBar();
+        setupSpinner();
+    }
+    
+    private void setupSpinner() {
+        Spinner dropdown = (Spinner) findViewById(R.id.freq_spinner);
+        // TODO get options from FrequencyFactory or something
+        String[] options = new String[] {"Every Day", "Every Week", "Every Month"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, options);
+        dropdown.setAdapter(adapter);
     }
 
-    /**
-     * Set up the {@link android.app.ActionBar}.
-     */
     private void setupActionBar() {
-
         getActionBar().setDisplayHomeAsUpEnabled(true);
-
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        return true;
+    
+    public void onSaveActivity(View view) {
+        
     }
 
     @Override

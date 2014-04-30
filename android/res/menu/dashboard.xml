@@ -5,7 +5,7 @@
         android:orderInCategory="100"
         android:showAsAction="always"
         android:icon="@drawable/ic_action_new"
-        android:title="@string/action_new"/>
+        android:title="@string/action_new" />
 <!--     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

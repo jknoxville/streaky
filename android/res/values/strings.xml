@@ -4,7 +4,13 @@
     <string name="app_name">Streaky</string>
     <string name="action_new">New</string>
     <string name="action_settings">Settings</string>
+    
     <string name="title_activity_new">NewActivity</string>
+    <string name="new_activity_name_label">Activity Name</string>
+    <string name="sample_activity_name">e.g Climbing</string>
+    <string name="new_activity_frequency_label">Target</string>
+    <string name="create_activity_button_label">Create Activity</string>
+    
     <string name="hello_world">Hello world!</string>
 
 </resources>
