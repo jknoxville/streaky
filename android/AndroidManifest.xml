@@ -14,13 +14,21 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.jknoxville.streaky.DashboardActivity"
+            android:name="com.jknoxville.streaky.ui.DashboardActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.jknoxville.streaky.NewActivity"
+            android:label="@string/title_activity_new"
+            android:parentActivityName="com.jknoxville.streaky.ui.DashboardActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jknoxville.streaky.ui.DashboardActivity" />
         </activity>
     </application>
 

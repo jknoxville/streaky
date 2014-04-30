@@ -2,7 +2,9 @@
 <resources>
 
     <string name="app_name">Streaky</string>
+    <string name="action_new">New</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_new">NewActivity</string>
     <string name="hello_world">Hello world!</string>
 
 </resources>
