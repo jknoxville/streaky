@@ -6,7 +6,7 @@ public class MockPerson extends Person {
     
     public MockPerson() {
         super();
-        this.addUserAction(new UserAction("testAction", StreakCalculatorFactory.getLengthStreakCalculator(StreakCalculatorFactory.Freq.DAY)));
+        this.addUserAction(new UserAction("testAction", StreakCalculatorFactory.getLengthStreakCalculator(StreakCalculatorFactory.Freq.DAY), 0));
     }
 
 }

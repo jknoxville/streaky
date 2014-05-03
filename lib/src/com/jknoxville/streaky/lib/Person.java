@@ -1,19 +1,18 @@
 package com.jknoxville.streaky.lib;
 
-import java.util.PriorityQueue;
-
-import com.jknoxville.streaky.lib.UserAction.UserActionPriorityComparator;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Person {
     
-    private static final int INITIAL_CAPACITY = 11;
-    PriorityQueue<UserAction> actions;
+    public static final Person instance = new Person();
+    List<UserAction> actions;
     
-    public Person() {
-        actions = new PriorityQueue<UserAction>(INITIAL_CAPACITY, new UserActionPriorityComparator());
+    protected Person() {
+        actions = new ArrayList<UserAction>();
     }
     
-    public PriorityQueue<UserAction> getActions() {
+    public List<UserAction> getActions() {
         return actions;
     }
     

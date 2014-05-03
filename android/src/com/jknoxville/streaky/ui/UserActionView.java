@@ -1,5 +1,6 @@
 package com.jknoxville.streaky.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -87,6 +88,10 @@ public class UserActionView extends LinearLayout {
         mainContent.addView(score);
         
         return mainContent;
+    }
+    
+    public UserAction getUserAction() {
+        return action;
     }
     
     private int dip(int px) {

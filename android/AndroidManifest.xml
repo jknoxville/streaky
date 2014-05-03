@@ -30,6 +30,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jknoxville.streaky.ui.DashboardActivity" />
         </activity>
+        <activity
+            android:name="com.jknoxville.streaky.UserActionActivity"
+            android:label="@string/title_activity_user_action"
+            android:parentActivityName="com.jknoxville.streaky.ui.DashboardActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jknoxville.streaky.ui.DashboardActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -9,13 +9,15 @@ public class UserAction implements Comparable<UserAction> {
 	
 	private final StreakCalculator calculator;
 	private final EventLog eventLog;
+	private final int id;
 	private String name;
 	
 	// TODO: pass in eventlog to constructor
-	public UserAction(String name, StreakCalculator calc) {
+	public UserAction(String name, StreakCalculator calc, int id) {
 	    this.name = name;
 	    this.eventLog = new EventLog();
 	    this.calculator = calc;
+	    this.id = id;
 	}
 	
 	public Streak getCurrentStreak() {
@@ -30,6 +32,9 @@ public class UserAction implements Comparable<UserAction> {
 
 	public String getName() {
 	    return name;
+	}
+	public int getID() {
+	    return id;
 	}
 
 	@Override
