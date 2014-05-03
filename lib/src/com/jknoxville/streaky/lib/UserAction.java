@@ -7,12 +7,14 @@ import com.jknoxville.streaky.lib.event.StreakCalculator;
 
 public class UserAction implements Comparable<UserAction> {
 	
-	private StreakCalculator calculator;
-	private EventLog eventLog;
+	private final StreakCalculator calculator;
+	private final EventLog eventLog;
 	private String name;
 	
+	// TODO: pass in eventlog to constructor
 	public UserAction(String name, StreakCalculator calc) {
 	    this.name = name;
+	    this.eventLog = new EventLog();
 	    this.calculator = calc;
 	}
 	

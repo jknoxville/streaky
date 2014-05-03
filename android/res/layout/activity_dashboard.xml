@@ -11,10 +11,12 @@
     tools:context=".DashboardActivity" >
 
     <LinearLayout
+        android:id="@+id/user_action_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-        <LinearLayout
+        <com.jknoxville.streaky.ui.UserActionView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -83,7 +85,7 @@
                     android:padding="3dp"
                     android:layout_margin="2dp" />
             </RelativeLayout>
-        </LinearLayout>
+        </com.jknoxville.streaky.ui.UserActionView>
     </LinearLayout>
 
 </RelativeLayout>

@@ -13,6 +13,10 @@ public class Person {
         actions = new PriorityQueue<UserAction>(INITIAL_CAPACITY, new UserActionPriorityComparator());
     }
     
+    public PriorityQueue<UserAction> getActions() {
+        return actions;
+    }
+    
     public void addUserAction(UserAction action) {
         actions.add(action);
     }
