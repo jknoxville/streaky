@@ -18,8 +18,9 @@ import com.jknoxville.streaky.lib.Person;
 import com.jknoxville.streaky.lib.UserAction;
 
 public class DashboardActivity extends Activity {
-    
+
     private Person self;
+    private LinearLayout userActionListView;
     private OnClickListener userActionViewOnClickListener;
 
     @Override
@@ -32,18 +33,33 @@ public class DashboardActivity extends Activity {
          * Then can do:
          * self = Person.instance;
          */
-        self = new MockPerson();
+        this.self = Person.instance;
+        this.userActionListView = (LinearLayout) findViewById(R.id.user_action_list);
+        if(MockPerson.timesMocked == 0) {
+            MockPerson.addMockActivity(Person.instance);
+        }
         addActionViews();
     }
     
+    /* TODO: whenever this activity becomes visible again (e.g. back from Activity screen)
+     * invalidate the actionViews.
+     * onResume doesn't seem to do it
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        for(int index = 0; index < userActionListView.getChildCount(); index++) {
+            userActionListView.getChildAt(index).invalidate();
+        }
+    }
+    
+
     private void addActionViews() {
-        LinearLayout userActionList = (LinearLayout) findViewById(R.id.user_action_list);
         for(UserAction action: self.getActions()) {
             UserActionView view = new UserActionView(this, action);
             view.setOnClickListener(getOnClickListener());
-            userActionList.addView(view);
+            userActionListView.addView(view);
         }
-        userActionList.invalidate();
     }
 
     @Override
@@ -51,7 +67,7 @@ public class DashboardActivity extends Activity {
         getMenuInflater().inflate(R.menu.dashboard, menu);
         return true;
     }
-    
+
     @Override
     // Handle presses on the action bar items
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -63,22 +79,22 @@ public class DashboardActivity extends Activity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    
+
     public void onClickNew() {
         Intent intent = new Intent(this, NewActivity.class);
         startActivity(intent);
     }
-    
+
     public void onClickAction(UserActionView actionView) {
         Intent intent = new Intent(this, UserActionActivity.class);
         intent.putExtra(Constants.USER_ACTION_ID_KEY, actionView.getUserAction().getID());
         startActivity(intent);
     }
-    
+
     private OnClickListener getOnClickListener() {
         if(userActionViewOnClickListener == null) {
             userActionViewOnClickListener = new OnClickListener() {
-                
+
                 @Override
                 public void onClick(View v) {
                     onClickAction((UserActionView) v);

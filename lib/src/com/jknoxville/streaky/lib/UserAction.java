@@ -1,5 +1,6 @@
 package com.jknoxville.streaky.lib;
 
+import java.util.Calendar;
 import java.util.Comparator;
 
 import com.jknoxville.streaky.lib.event.EventLog;
@@ -35,6 +36,10 @@ public class UserAction implements Comparable<UserAction> {
 	}
 	public int getID() {
 	    return id;
+	}
+	
+	public void newEvent() {
+	    eventLog.addEvent(Calendar.getInstance());
 	}
 
 	@Override

@@ -1,12 +1,19 @@
 package com.jknoxville.streaky;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
+import android.view.View;
+import android.widget.TextView;
+
+import com.jknoxville.streaky.lib.Person;
+import com.jknoxville.streaky.lib.UserAction;
 
 public class UserActionActivity extends Activity {
+    
+    private UserAction action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +24,25 @@ public class UserActionActivity extends Activity {
         if(userActionID < 0) {
             this.finish();
         }
+        this.action = Person.instance.getActions().get(userActionID);
+        addViews();
+    }
+    
+    private void addViews() {
+        TextView tv = (TextView) findViewById(R.id.test_text);
+        tv.setText(action.getName()+": "+action.getCurrentStreak().amount);
+    }
+    
+    public void onCheckin(View view) {
+        this.action.newEvent();
+        invalidateView();
+    }
+    
+    private void invalidateView() {
+        // TODO
+        TextView tv = (TextView) findViewById(R.id.test_text);
+        tv.setText(action.getName()+": "+action.getCurrentStreak().amount);
+        tv.invalidate();
     }
 
     private void setupActionBar() {

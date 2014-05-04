@@ -23,7 +23,7 @@ public class EventLog {
 		startDate = Calendar.getInstance();
 	}
 	
-	protected void addEvent(Calendar cal) {
+	public void addEvent(Calendar cal) {
 	    int year = cal.get(Calendar.YEAR);
 	    int month = cal.get(Calendar.MONTH);
 	    int weekOfYear = cal.get(Calendar.WEEK_OF_YEAR);

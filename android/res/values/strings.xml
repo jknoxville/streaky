@@ -11,5 +11,6 @@
     <string name="create_activity_button_label">Create Activity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_user_action">Activity</string>
+    <string name="checkin_button_text">Check in</string>
 
 </resources>
