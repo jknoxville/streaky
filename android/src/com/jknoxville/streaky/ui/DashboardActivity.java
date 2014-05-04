@@ -41,13 +41,10 @@ public class DashboardActivity extends Activity {
         addActionViews();
     }
     
-    /* TODO: whenever this activity becomes visible again (e.g. back from Activity screen)
-     * invalidate the actionViews.
-     * onResume doesn't seem to do it
-     */
     @Override
     public void onResume() {
         super.onResume();
+        // Invalidate all UserActionViews so they refresh
         for(int index = 0; index < userActionListView.getChildCount(); index++) {
             userActionListView.getChildAt(index).invalidate();
         }

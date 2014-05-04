@@ -1,6 +1,5 @@
 package com.jknoxville.streaky.ui;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -30,6 +29,10 @@ public class UserActionView extends LinearLayout {
         ACTION_MARGIN   = dip(10),
         TEXT_COLOR      = Color.parseColor("#4C4C4C");
     
+    private static int childIndex = 0;
+    private static int TOP_BAR_CHILD_INDEX = childIndex++;
+    private static int MAIN_CONTENT_CHILD_INDEX = childIndex++;
+    
     @SuppressWarnings("deprecation")
     public UserActionView(Context context, UserAction action) {
         super(context);
@@ -42,9 +45,18 @@ public class UserActionView extends LinearLayout {
         View topBar = getTopBar();
         View mainContent = getMainContent();
         Drawable bg = getResources().getDrawable(R.drawable.dashboard_item);
-        this.addView(topBar);
-        this.addView(mainContent);
+        this.addView(topBar, TOP_BAR_CHILD_INDEX);
+        this.addView(mainContent, MAIN_CONTENT_CHILD_INDEX);
         this.setBackgroundDrawable(bg);
+    }
+    
+    @Override
+    public void invalidate() {
+        super.invalidate();
+        if(this.action != null) {
+            removeViewAt(MAIN_CONTENT_CHILD_INDEX);
+            addView(getMainContent(), MAIN_CONTENT_CHILD_INDEX);
+        }
     }
     
     private View getTopBar() {
@@ -103,7 +115,6 @@ public class UserActionView extends LinearLayout {
         super(context, attrs);
         this.action = null;
         this.context = context;
-        // TODO Auto-generated constructor stub
     }
 
 }
