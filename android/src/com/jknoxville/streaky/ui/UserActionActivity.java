@@ -1,4 +1,4 @@
-package com.jknoxville.streaky;
+package com.jknoxville.streaky.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.jknoxville.streaky.Constants;
+import com.jknoxville.streaky.R;
 import com.jknoxville.streaky.lib.Person;
 import com.jknoxville.streaky.lib.UserAction;
 

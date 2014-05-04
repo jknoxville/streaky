@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.jknoxville.streaky.NewActivity"
+            android:name="com.jknoxville.streaky.ui.NewActivity"
             android:label="@string/title_activity_new"
             android:parentActivityName="com.jknoxville.streaky.ui.DashboardActivity" >
             <meta-data
@@ -31,7 +31,7 @@
                 android:value="com.jknoxville.streaky.ui.DashboardActivity" />
         </activity>
         <activity
-            android:name="com.jknoxville.streaky.UserActionActivity"
+            android:name="com.jknoxville.streaky.ui.UserActionActivity"
             android:label="@string/title_activity_user_action"
             android:parentActivityName="com.jknoxville.streaky.ui.DashboardActivity" >
             <meta-data

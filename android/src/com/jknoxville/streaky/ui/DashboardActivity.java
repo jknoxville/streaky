@@ -10,9 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 
 import com.jknoxville.streaky.Constants;
-import com.jknoxville.streaky.NewActivity;
 import com.jknoxville.streaky.R;
-import com.jknoxville.streaky.UserActionActivity;
 import com.jknoxville.streaky.lib.MockPerson;
 import com.jknoxville.streaky.lib.Person;
 import com.jknoxville.streaky.lib.UserAction;
