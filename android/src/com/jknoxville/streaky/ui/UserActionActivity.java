@@ -26,7 +26,7 @@ public class UserActionActivity extends Activity {
         if(userActionID < 0) {
             this.finish();
         }
-        this.action = Person.instance.getActions().get(userActionID);
+        this.action = Person.getInstance().getActions().get(userActionID);
         addViews();
     }
     

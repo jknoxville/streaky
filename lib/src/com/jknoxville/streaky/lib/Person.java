@@ -5,8 +5,15 @@ import java.util.List;
 
 public class Person {
     
-    public static final Person instance = new Person();
+    private static Person instance;
     List<UserAction> actions;
+    
+    public static Person getInstance() {
+        if(instance == null) {
+            instance = new Person();
+        }
+        return instance;
+    }
     
     protected Person() {
         actions = new ArrayList<UserAction>();

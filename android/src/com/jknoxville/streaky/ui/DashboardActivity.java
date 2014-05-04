@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 
 import com.jknoxville.streaky.Constants;
 import com.jknoxville.streaky.R;
-import com.jknoxville.streaky.lib.MockPerson;
 import com.jknoxville.streaky.lib.Person;
 import com.jknoxville.streaky.lib.UserAction;
 
@@ -25,17 +24,8 @@ public class DashboardActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        /* TODO:
-         * Before you get to this activity, initialize the static Person instance
-         * by reading from the DB / creating the DB. Maybe during a splash screen?
-         * Then can do:
-         * self = Person.instance;
-         */
-        this.self = Person.instance;
+        this.self = Person.getInstance();
         this.userActionListView = (LinearLayout) findViewById(R.id.user_action_list);
-        if(MockPerson.timesMocked == 0) {
-            MockPerson.addMockActivity(Person.instance);
-        }
         addActionViews();
     }
     
