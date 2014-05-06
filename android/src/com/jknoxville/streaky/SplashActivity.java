@@ -19,6 +19,7 @@ public class SplashActivity extends Activity {
         DatabaseConnection db = DatabaseConnection.getInstance(this);
         Person self = Person.getInstance();
         
+        // TODO: Read from database in a new thread
         db.readActions();
         
         // Placeholder until DB set up
