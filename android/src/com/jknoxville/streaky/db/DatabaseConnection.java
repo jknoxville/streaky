@@ -3,6 +3,7 @@ package com.jknoxville.streaky.db;
 import java.util.LinkedList;
 import java.util.List;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -31,6 +32,18 @@ public class DatabaseConnection {
             instance = new DatabaseConnection(db);
         }
         return instance;
+    }
+    
+    public boolean writeAction(UserAction action) {
+        ContentValues values = new ContentValues();
+        values.put(Action._ID, action.getID());
+        values.put(Action.COLUMN_NAME_CREATION_DATE, action.getCreationDate().getTimeInMillis());
+        values.put(Action.COLUMN_NAME_ACTION_NAME, action.getName());
+        values.put(Action.COLUMN_NAME_CALCULATOR_TYPE, action.getStreakType().toString());
+        values.put(Action.COLUMN_NAME_PERIOD, action.getStreakPeriod());
+        values.put(Action.COLUMN_NAME_PERIOD_UNIT, action.getStreakUnit().name());
+        Long id = db.insert(Action.TABLE_NAME, null, values);
+        return id != null;
     }
 
     public List<UserAction> readActions() {

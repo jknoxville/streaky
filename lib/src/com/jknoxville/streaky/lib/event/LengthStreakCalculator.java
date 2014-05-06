@@ -7,6 +7,7 @@ import com.jknoxville.streaky.lib.Streak;
 public class LengthStreakCalculator implements StreakCalculator {
 
     private final Frequency freq;
+    private static final StreakType type = StreakType.LENGTH;
 
     public LengthStreakCalculator(Frequency freq) {
         this.freq = freq;
@@ -30,6 +31,16 @@ public class LengthStreakCalculator implements StreakCalculator {
             freq.setToPreviousPeriod(instant);
         }
         return new Streak(streakLength, freq);
+    }
+    
+    public StreakType getType() {
+        return type;
+    }
+    public int getPeriod() {
+        return this.freq.getPeriod();
+    }
+    public StreakUnit getUnit() {
+        return this.freq.getUnit();
     }
 
     @Override

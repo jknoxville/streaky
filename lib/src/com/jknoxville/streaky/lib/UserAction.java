@@ -5,6 +5,7 @@ import java.util.Comparator;
 
 import com.jknoxville.streaky.lib.event.EventLog;
 import com.jknoxville.streaky.lib.event.StreakCalculator;
+import com.jknoxville.streaky.lib.event.StreakUnit;
 
 public class UserAction implements Comparable<UserAction> {
 	
@@ -12,6 +13,7 @@ public class UserAction implements Comparable<UserAction> {
 	private final EventLog eventLog;
 	private final int id;
 	private String name;
+	private final Calendar creationDate;
 	
 	// TODO: pass in eventlog to constructor
 	public UserAction(String name, StreakCalculator calc, int id) {
@@ -19,6 +21,7 @@ public class UserAction implements Comparable<UserAction> {
 	    this.eventLog = new EventLog();
 	    this.calculator = calc;
 	    this.id = id;
+	    this.creationDate = Calendar.getInstance();
 	}
 	
 	public Streak getCurrentStreak() {
@@ -36,6 +39,18 @@ public class UserAction implements Comparable<UserAction> {
 	}
 	public int getID() {
 	    return id;
+	}
+	public Calendar getCreationDate() {
+	    return creationDate;
+	}
+	public StreakCalculator.StreakType getStreakType() {
+	    return this.calculator.getType();
+	}
+	public int getStreakPeriod() {
+	    return this.calculator.getPeriod();
+	}
+	public StreakUnit getStreakUnit() {
+	    return this.calculator.getUnit();
 	}
 	
 	public void newEvent() {

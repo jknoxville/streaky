@@ -24,5 +24,8 @@ public class DayFrequency extends Frequency {
     public StreakUnit getUnit() {
         return unit;
     }
+    public int getPeriod() {
+        return NUM_DAYS;
+    }
 
 }

@@ -11,5 +11,6 @@ public abstract class Frequency {
     public abstract boolean eventOccursWithinPeriod(EventLog log, Calendar timeInsidePeriod);
     public abstract void setToPreviousPeriod(Calendar cal);
     public abstract StreakUnit getUnit();
+    public abstract int getPeriod();
 
 }
