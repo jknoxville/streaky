@@ -16,14 +16,14 @@ public final class StreakyContract {
                 "CREATE TABLE " + Event.TABLE_NAME + " (" +
                     Event._ID + " INTEGER PRIMARY KEY, " +
                     Event.COLUMN_NAME_USER_ACTION + " INTEGER NOT NULL, " +
-                    Event.COLUMN_NAME_EVENT_TIME + " DATETIME NOT NULL, " +
+                    Event.COLUMN_NAME_EVENT_TIME + " INTEGER NOT NULL, " +
                     "FOREIGN KEY (" + Event.COLUMN_NAME_USER_ACTION + ") REFERENCES " +
                         Action.TABLE_NAME + " (" + Action._ID + ") " +
                 ");",
         SQL_CREATE_ACTIONS = 
                 "CREATE TABLE " + Action.TABLE_NAME + " (" +
                     Action._ID + " INTEGER PRIMARY KEY, " +
-                    Action.COLUMN_NAME_CREATION_DATE + " DATETIME NOT NULL, " +
+                    Action.COLUMN_NAME_CREATION_DATE + " INTEGER NOT NULL, " +
                     Action.COLUMN_NAME_ACTION_NAME + " TEXT NOT NULL, " +
                     Action.COLUMN_NAME_PERIOD + " INTEGER NOT NULL, " +
                     Action.COLUMN_NAME_PERIOD_UNIT + " TEXT NOT NULL, " +

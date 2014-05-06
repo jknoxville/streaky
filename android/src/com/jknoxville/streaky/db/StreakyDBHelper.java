@@ -19,6 +19,14 @@ public class StreakyDBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Currently on DATABASE_VERSION 1 so no upgrades are possible.
+        db.execSQL("DROP TABLE ACTION");
+        db.execSQL("DROP TABLE EVENT");
+        onCreate(db);
+    }
+    
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        onUpgrade(db, oldVersion, newVersion);
     }
 
 }
