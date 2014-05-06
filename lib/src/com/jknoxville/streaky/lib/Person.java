@@ -42,11 +42,12 @@ public class Person {
     
     // Gets the first unused id in the action list
     private int getNextUserActionID() {
-        int id = 0;
-        while(actions.get(id) != null) {
-            id++;
+        for(int id = 0; id < actions.size(); id++) {
+            if(actions.get(id) == null) {
+                return id;
+            }
         }
-        return id;
+        return actions.size();
     }
 
 }
