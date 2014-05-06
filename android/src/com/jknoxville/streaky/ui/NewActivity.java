@@ -6,9 +6,15 @@ import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.jknoxville.streaky.R;
+import com.jknoxville.streaky.lib.Person;
+import com.jknoxville.streaky.lib.UserAction;
+import com.jknoxville.streaky.lib.event.StreakCalculator;
+import com.jknoxville.streaky.lib.event.StreakCalculatorFactory;
+import com.jknoxville.streaky.lib.event.StreakCalculatorFactory.Freq;
 
 public class NewActivity extends Activity {
 
@@ -34,6 +40,11 @@ public class NewActivity extends Activity {
     }
     
     public void onSaveActivity(View view) {
+        if(hasRequiredInfo()) {
+            Person.getInstance().newUserAction(readName(), getCalculator());
+        } else {
+            promptForMissingInfo();
+        }
         
     }
 
@@ -52,6 +63,22 @@ public class NewActivity extends Activity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    private String readName() {
+        EditText nameView = (EditText) findViewById(R.id.new_activity_name);
+        return nameView.getText().toString();
+    }
+    private StreakCalculator getCalculator() {
+        // Spinner targetSelector = (Spinner) findViewById(R.id.freq_spinner);
+        // String target = targetSelector.getSelectedItem().toString();
+        // TODO: support types other than DAY
+        return StreakCalculatorFactory.getLengthStreakCalculator(Freq.DAY);
+    }
+    private boolean hasRequiredInfo() {
+        return false;
+    }
+    private void promptForMissingInfo() {
+        // TODO: show hint or something next to missing fields
     }
 
 }

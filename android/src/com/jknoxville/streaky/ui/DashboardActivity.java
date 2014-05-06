@@ -33,9 +33,8 @@ public class DashboardActivity extends Activity {
     public void onResume() {
         super.onResume();
         // Invalidate all UserActionViews so they refresh
-        for(int index = 0; index < userActionListView.getChildCount(); index++) {
-            userActionListView.getChildAt(index).invalidate();
-        }
+        this.userActionListView.removeAllViews();
+        addActionViews();
     }
     
 

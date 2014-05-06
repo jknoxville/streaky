@@ -3,6 +3,8 @@ package com.jknoxville.streaky.lib;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jknoxville.streaky.lib.event.StreakCalculator;
+
 public class Person {
     
     private static Person instance;
@@ -23,6 +25,12 @@ public class Person {
         return actions;
     }
     
+    public synchronized void newUserAction(String name, StreakCalculator calc) {
+        int id = getNextUserActionID();
+        UserAction action = new UserAction(name, calc, id);
+        addUserAction(action);
+    }
+    
     public void addUserAction(UserAction action) {
         actions.add(action);
     }
@@ -30,6 +38,15 @@ public class Person {
     public void removeUserAction(UserAction action) {
         //TODO Remove from DB or at least mark it as removed in DB
         actions.remove(action);
+    }
+    
+    // Gets the first unused id in the action list
+    private int getNextUserActionID() {
+        int id = 0;
+        while(actions.get(id) != null) {
+            id++;
+        }
+        return id;
     }
 
 }
