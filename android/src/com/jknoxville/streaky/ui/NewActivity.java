@@ -11,7 +11,6 @@ import android.widget.Spinner;
 
 import com.jknoxville.streaky.R;
 import com.jknoxville.streaky.lib.Person;
-import com.jknoxville.streaky.lib.UserAction;
 import com.jknoxville.streaky.lib.event.StreakCalculator;
 import com.jknoxville.streaky.lib.event.StreakCalculatorFactory;
 import com.jknoxville.streaky.lib.event.StreakCalculatorFactory.Freq;
@@ -40,6 +39,7 @@ public class NewActivity extends Activity {
     }
     
     public void onSaveActivity(View view) {
+        // TODO: Don't allow duplicate names
         if(hasRequiredInfo()) {
             Person.getInstance().newUserAction(readName(), getCalculator());
         } else {
@@ -75,7 +75,7 @@ public class NewActivity extends Activity {
         return StreakCalculatorFactory.getLengthStreakCalculator(Freq.DAY);
     }
     private boolean hasRequiredInfo() {
-        return false;
+        return !readName().isEmpty();
     }
     private void promptForMissingInfo() {
         // TODO: show hint or something next to missing fields
