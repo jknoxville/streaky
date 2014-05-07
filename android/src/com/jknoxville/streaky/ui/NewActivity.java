@@ -11,6 +11,7 @@ import android.widget.Spinner;
 
 import com.jknoxville.streaky.R;
 import com.jknoxville.streaky.db.DatabaseConnection;
+import com.jknoxville.streaky.error.NameAlreadyExistsException;
 import com.jknoxville.streaky.lib.Person;
 import com.jknoxville.streaky.lib.UserAction;
 import com.jknoxville.streaky.lib.event.StreakCalculator;
@@ -27,7 +28,7 @@ public class NewActivity extends Activity {
         setupActionBar();
         setupSpinner();
     }
-    
+
     private void setupSpinner() {
         Spinner dropdown = (Spinner) findViewById(R.id.freq_spinner);
         ArrayAdapter<Freq> adapter = new ArrayAdapter<Freq>(this, android.R.layout.simple_spinner_item, Freq.values());
@@ -37,16 +38,21 @@ public class NewActivity extends Activity {
     private void setupActionBar() {
         getActionBar().setDisplayHomeAsUpEnabled(true);
     }
-    
+
     public void onSaveActivity(View view) {
-        // TODO: Don't allow duplicate names
         if(hasRequiredInfo()) {
-            UserAction action = Person.getInstance().newUserAction(readName(), getCalculator());
-            DatabaseConnection.getInstance(this).writeAction(action);
+            try {
+                UserAction action = Person.getInstance().newUserAction(readName(), getCalculator());
+                DatabaseConnection.getInstance(this).writeAction(action);
+                finish();
+            } catch(NameAlreadyExistsException e) {
+                promptForNonExistentName();
+            }
+
         } else {
             promptForMissingInfo();
         }
-        
+
     }
 
     @Override
@@ -79,6 +85,9 @@ public class NewActivity extends Activity {
     }
     private void promptForMissingInfo() {
         // TODO: show hint or something next to missing fields
+    }
+    private void promptForNonExistentName() {
+        // TODO: get user to try a different name
     }
 
 }

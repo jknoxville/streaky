@@ -3,6 +3,7 @@ package com.jknoxville.streaky.lib;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jknoxville.streaky.error.NameAlreadyExistsException;
 import com.jknoxville.streaky.lib.event.StreakCalculator;
 
 public class Person {
@@ -25,7 +26,8 @@ public class Person {
         return actions;
     }
     
-    public synchronized UserAction newUserAction(String name, StreakCalculator calc) {
+    public synchronized UserAction newUserAction(String name, StreakCalculator calc) throws NameAlreadyExistsException {
+        validateName(name);
         int id = getNextUserActionID();
         UserAction action = new UserAction(name, calc, id);
         addUserAction(action);
@@ -39,6 +41,14 @@ public class Person {
     public void removeUserAction(UserAction action) {
         //TODO Remove from DB or at least mark it as removed in DB
         actions.remove(action);
+    }
+    
+    private void validateName(String name) throws NameAlreadyExistsException {
+        for(UserAction action: this.actions) {
+            if(name.contentEquals(action.getName())) {
+                throw new NameAlreadyExistsException();
+            }
+        }
     }
     
     // Gets the first unused id in the action list
