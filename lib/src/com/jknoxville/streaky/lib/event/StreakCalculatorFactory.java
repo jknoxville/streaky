@@ -1,21 +1,22 @@
 package com.jknoxville.streaky.lib.event;
 
-import java.util.HashMap;
 
 public class StreakCalculatorFactory {
     
     public enum Freq {
-        DAY;
-    }
-    
-    private static final HashMap<Freq, Frequency> frequencies = new HashMap<Freq, Frequency>();
-    
-    static {
-        frequencies.put(Freq.DAY, new DayFrequency());
+        DAY(new DayFrequency());
+        
+        public Frequency frequency;
+        Freq(Frequency frequency) {
+            this.frequency = frequency;
+        }
+        public Frequency getFrequency() {
+            return frequency;
+        }
     }
     
     public static LengthStreakCalculator getLengthStreakCalculator(Freq freq) {
-        return new LengthStreakCalculator(frequencies.get(freq));
+        return new LengthStreakCalculator(freq.getFrequency());
     }
 
 }
