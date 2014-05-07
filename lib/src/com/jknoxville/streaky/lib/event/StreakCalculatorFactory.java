@@ -17,7 +17,8 @@ public class StreakCalculatorFactory {
         public Frequency getFrequency() {
             return frequency;
         }
-        public String getFriendlyName() {
+        @Override
+        public String toString() {
             return friendlyName;
         }
     }

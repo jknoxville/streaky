@@ -28,9 +28,7 @@ public class NewActivity extends Activity {
     
     private void setupSpinner() {
         Spinner dropdown = (Spinner) findViewById(R.id.freq_spinner);
-        // TODO get options from FrequencyFactory or something
-        String[] options = new String[] {"Every Day", "Every Week", "Every Month"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, options);
+        ArrayAdapter<Freq> adapter = new ArrayAdapter<Freq>(this, android.R.layout.simple_spinner_item, Freq.values());
         dropdown.setAdapter(adapter);
     }
 
@@ -69,10 +67,9 @@ public class NewActivity extends Activity {
         return nameView.getText().toString();
     }
     private StreakCalculator getCalculator() {
-        // Spinner targetSelector = (Spinner) findViewById(R.id.freq_spinner);
-        // String target = targetSelector.getSelectedItem().toString();
-        // TODO: support types other than DAY
-        return StreakCalculatorFactory.getLengthStreakCalculator(Freq.DAY);
+        Spinner targetSelector = (Spinner) findViewById(R.id.freq_spinner);
+        Freq target = (Freq) targetSelector.getSelectedItem();
+        return StreakCalculatorFactory.getLengthStreakCalculator(target);
     }
     private boolean hasRequiredInfo() {
         return !readName().isEmpty();
