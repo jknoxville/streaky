@@ -10,7 +10,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.jknoxville.streaky.R;
+import com.jknoxville.streaky.db.DatabaseConnection;
 import com.jknoxville.streaky.lib.Person;
+import com.jknoxville.streaky.lib.UserAction;
 import com.jknoxville.streaky.lib.event.StreakCalculator;
 import com.jknoxville.streaky.lib.event.StreakCalculatorFactory;
 import com.jknoxville.streaky.lib.event.StreakCalculatorFactory.Freq;
@@ -39,7 +41,8 @@ public class NewActivity extends Activity {
     public void onSaveActivity(View view) {
         // TODO: Don't allow duplicate names
         if(hasRequiredInfo()) {
-            Person.getInstance().newUserAction(readName(), getCalculator());
+            UserAction action = Person.getInstance().newUserAction(readName(), getCalculator());
+            DatabaseConnection.getInstance(this).writeAction(action);
         } else {
             promptForMissingInfo();
         }

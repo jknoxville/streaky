@@ -25,10 +25,11 @@ public class Person {
         return actions;
     }
     
-    public synchronized void newUserAction(String name, StreakCalculator calc) {
+    public synchronized UserAction newUserAction(String name, StreakCalculator calc) {
         int id = getNextUserActionID();
         UserAction action = new UserAction(name, calc, id);
         addUserAction(action);
+        return action;
     }
     
     public void addUserAction(UserAction action) {

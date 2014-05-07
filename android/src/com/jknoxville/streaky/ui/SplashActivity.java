@@ -1,16 +1,17 @@
 package com.jknoxville.streaky.ui;
 
+import java.util.Collection;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 
 import com.jknoxville.streaky.R;
-import com.jknoxville.streaky.R.layout;
-import com.jknoxville.streaky.R.menu;
 import com.jknoxville.streaky.db.DatabaseConnection;
 import com.jknoxville.streaky.lib.MockPerson;
 import com.jknoxville.streaky.lib.Person;
+import com.jknoxville.streaky.lib.UserAction;
 
 public class SplashActivity extends Activity {
 
@@ -22,12 +23,12 @@ public class SplashActivity extends Activity {
         Person self = Person.getInstance();
         
         // TODO: Read from database in a new thread
-        db.readActions();
-        
-        // Placeholder until DB set up
-        if(MockPerson.timesMocked == 0) {
-            MockPerson.addMockActivity(Person.getInstance());
+        Collection<UserAction> actions = db.readActions();
+        System.out.println("Number of actions: "+actions.size());
+        for(UserAction action: actions) {
+            self.addUserAction(action);
         }
+        
         onFinishedLoading();
     }
     
