@@ -1,14 +1,16 @@
-package com.jknoxville.streaky;
+package com.jknoxville.streaky.ui;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 
+import com.jknoxville.streaky.R;
+import com.jknoxville.streaky.R.layout;
+import com.jknoxville.streaky.R.menu;
 import com.jknoxville.streaky.db.DatabaseConnection;
 import com.jknoxville.streaky.lib.MockPerson;
 import com.jknoxville.streaky.lib.Person;
-import com.jknoxville.streaky.ui.DashboardActivity;
 
 public class SplashActivity extends Activity {
 

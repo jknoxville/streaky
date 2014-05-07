@@ -34,7 +34,7 @@
                 android:value="com.jknoxville.streaky.ui.DashboardActivity" />
         </activity>
         <activity
-            android:name="com.jknoxville.streaky.SplashActivity"
+            android:name="com.jknoxville.streaky.ui.SplashActivity"
             android:label="@string/title_activity_splash" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
