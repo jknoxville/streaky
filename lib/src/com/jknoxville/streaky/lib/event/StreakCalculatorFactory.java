@@ -4,14 +4,21 @@ package com.jknoxville.streaky.lib.event;
 public class StreakCalculatorFactory {
     
     public enum Freq {
-        DAY(new DayFrequency());
+        DAY(new DayFrequency(), "Daily");
         
-        public Frequency frequency;
-        Freq(Frequency frequency) {
+        private Frequency frequency;
+        private String friendlyName;
+        
+        Freq(Frequency frequency, String friendlyName) {
             this.frequency = frequency;
+            this.friendlyName = friendlyName;
         }
+        
         public Frequency getFrequency() {
             return frequency;
+        }
+        public String getFriendlyName() {
+            return friendlyName;
         }
     }
     
