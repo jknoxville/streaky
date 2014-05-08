@@ -26,19 +26,20 @@ public class DashboardActivity extends Activity {
         setContentView(R.layout.activity_dashboard);
         this.self = Person.getInstance();
         this.userActionListView = (LinearLayout) findViewById(R.id.user_action_list);
-        addActionViews();
+        refreshActionViews();
     }
     
     @Override
     public void onResume() {
         super.onResume();
-        // Invalidate all UserActionViews so they refresh
-        this.userActionListView.removeAllViews();
-        addActionViews();
+        refreshActionViews();
     }
     
 
-    private void addActionViews() {
+    private void refreshActionViews() {
+        // Invalidate all UserActionViews so they refresh
+        this.userActionListView.removeAllViews();
+        
         for(UserAction action: self.getActions()) {
             UserActionView view = new UserActionView(this, action);
             view.setOnClickListener(getOnClickListener());
