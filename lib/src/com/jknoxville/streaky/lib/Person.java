@@ -1,6 +1,7 @@
 package com.jknoxville.streaky.lib;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.jknoxville.streaky.error.NameAlreadyExistsException;
@@ -59,6 +60,14 @@ public class Person {
             }
         }
         return actions.size();
+    }
+    
+    public void initialise(Collection<UserAction> actions) {
+        if(this.actions.size() == 0) {
+            for(UserAction action: actions) {
+                addUserAction(action);
+            }
+        }
     }
 
 }
