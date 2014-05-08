@@ -70,7 +70,6 @@ public class DatabaseConnection {
             actions.add(action);
             c.moveToNext();
         }
-        System.out.println("Actions: "+actions.size());
         return actions;
     }
 
