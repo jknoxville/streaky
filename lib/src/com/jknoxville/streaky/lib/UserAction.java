@@ -53,8 +53,10 @@ public class UserAction implements Comparable<UserAction> {
 	    return this.calculator.getUnit();
 	}
 	
-	public void newEvent() {
-	    eventLog.addEvent(Calendar.getInstance());
+	public Calendar newEvent() {
+	    Calendar now = Calendar.getInstance();
+	    eventLog.addEvent(now);
+	    return now;
 	}
 	
 	public void addEvent(Calendar cal) {

@@ -47,7 +47,15 @@ public class DatabaseConnection {
         values.put(Action.COLUMN_NAME_PERIOD, action.getStreakPeriod());
         values.put(Action.COLUMN_NAME_PERIOD_UNIT, action.getStreakUnit().name());
         Long id = db.insert(Action.TABLE_NAME, null, values);
-        return id != null;
+        return id >= 0;
+    }
+    
+    public boolean writeEvent(UserAction action, Calendar cal) {
+        ContentValues values = new ContentValues();
+        values.put(Event.COLUMN_NAME_USER_ACTION, action.getID());
+        values.put(Event.COLUMN_NAME_EVENT_TIME, cal.getTimeInMillis());
+        Long id = db.insert(Event.TABLE_NAME, null, values);
+        return id >= 0;
     }
 
     public Collection<UserAction> getUserActions() {

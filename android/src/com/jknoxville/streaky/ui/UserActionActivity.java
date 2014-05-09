@@ -1,5 +1,7 @@
 package com.jknoxville.streaky.ui;
 
+import java.util.Calendar;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 
 import com.jknoxville.streaky.Constants;
 import com.jknoxville.streaky.R;
+import com.jknoxville.streaky.db.DatabaseConnection;
 import com.jknoxville.streaky.lib.Person;
 import com.jknoxville.streaky.lib.UserAction;
 
@@ -36,7 +39,8 @@ public class UserActionActivity extends Activity {
     }
     
     public void onCheckin(View view) {
-        this.action.newEvent();
+        Calendar event = this.action.newEvent();
+        DatabaseConnection.getInstance(this).writeEvent(action, event);
         invalidateView();
     }
     
