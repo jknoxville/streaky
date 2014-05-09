@@ -56,6 +56,10 @@ public class UserAction implements Comparable<UserAction> {
 	public void newEvent() {
 	    eventLog.addEvent(Calendar.getInstance());
 	}
+	
+	public void addEvent(Calendar cal) {
+	    eventLog.addEvent(cal);
+	}
 
 	@Override
     public int compareTo(UserAction other) {

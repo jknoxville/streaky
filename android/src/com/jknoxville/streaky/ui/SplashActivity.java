@@ -23,7 +23,7 @@ public class SplashActivity extends Activity {
         Person self = Person.getInstance();
         
         // TODO: Read from database in a new thread
-        Collection<UserAction> actions = db.readActions();
+        Collection<UserAction> actions = db.getUserActions();
         self.initialise(actions);
         
         onFinishedLoading();

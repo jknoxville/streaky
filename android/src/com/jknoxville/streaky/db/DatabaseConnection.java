@@ -1,5 +1,7 @@
 package com.jknoxville.streaky.db;
 
+import java.util.Calendar;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,8 +9,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.SparseArray;
 
 import com.jknoxville.streaky.db.StreakyContract.Action;
+import com.jknoxville.streaky.db.StreakyContract.Event;
 import com.jknoxville.streaky.lib.UserAction;
 import com.jknoxville.streaky.lib.event.StreakCalculator;
 import com.jknoxville.streaky.lib.event.StreakCalculatorFactory;
@@ -33,7 +37,7 @@ public class DatabaseConnection {
         }
         return instance;
     }
-    
+
     public boolean writeAction(UserAction action) {
         ContentValues values = new ContentValues();
         values.put(Action._ID, action.getID());
@@ -46,8 +50,19 @@ public class DatabaseConnection {
         return id != null;
     }
 
-    public List<UserAction> readActions() {
-        List<UserAction> actions = new LinkedList<UserAction>();
+    public Collection<UserAction> getUserActions() {
+        SparseArray<UserAction> actions = readActions();
+        loadEvents(actions);
+        List<UserAction> actionList = new LinkedList<UserAction>();
+        for(int i=0; i<actions.size(); i++) {
+            actionList.add(actions.valueAt(i));
+        }
+        return actionList;
+
+    }
+
+    private SparseArray<UserAction> readActions() {
+        SparseArray<UserAction> actions = new SparseArray<UserAction>();
         String[] projection = {
                 Action._ID,
                 Action.COLUMN_NAME_ACTION_NAME,
@@ -60,17 +75,34 @@ public class DatabaseConnection {
         Cursor c = db.query(Action.TABLE_NAME, projection, null, null, null, null, null);
         c.moveToFirst();
         while(!c.isAfterLast()) {
-//            Long period = c.getLong(c.getColumnIndexOrThrow(Action.COLUMN_NAME_PERIOD));
-//            String unit = c.getString(c.getColumnIndexOrThrow(Action.COLUMN_NAME_PERIOD_UNIT));
+            // Long period = c.getLong(c.getColumnIndexOrThrow(Action.COLUMN_NAME_PERIOD));
+            // String unit = c.getString(c.getColumnIndexOrThrow(Action.COLUMN_NAME_PERIOD_UNIT));
             // TODO check that period == 1 and unit == "DAY" when more types are introduced
             StreakCalculator calc = StreakCalculatorFactory.getLengthStreakCalculator(Freq.DAY);
             String name = c.getString(c.getColumnIndexOrThrow(Action.COLUMN_NAME_ACTION_NAME));
-            Long id = c.getLong(c.getColumnIndexOrThrow(Action._ID));
-            UserAction action = new UserAction(name, calc, id.intValue());
-            actions.add(action);
+            int id = Long.valueOf(c.getLong(c.getColumnIndexOrThrow(Action._ID))).intValue();
+            UserAction action = new UserAction(name, calc, id);
+            actions.put(id, action);
             c.moveToNext();
         }
         return actions;
+    }
+
+    private void loadEvents(SparseArray<UserAction> actions) {
+        String[] projection = {
+                Event.COLUMN_NAME_EVENT_TIME,
+                Event.COLUMN_NAME_USER_ACTION
+        };
+        Cursor c = db.query(Event.TABLE_NAME, projection, null, null, null, null, null);
+        c.moveToFirst();
+        while(!c.isAfterLast()) {
+            UserAction action = actions.get((int) c.getLong(c.getColumnIndexOrThrow(Event.COLUMN_NAME_USER_ACTION)));
+            Long milliseconds = c.getLong(c.getColumnIndexOrThrow(Event.COLUMN_NAME_EVENT_TIME));
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(milliseconds);
+            action.addEvent(cal);
+            c.moveToNext();
+        }
     }
 
 }
