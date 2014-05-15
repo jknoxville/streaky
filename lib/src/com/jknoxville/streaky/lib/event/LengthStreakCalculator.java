@@ -51,8 +51,22 @@ public class LengthStreakCalculator implements StreakCalculator {
 
     @Override
     public Streak getBestStreak(EventLog log) {
-
-        return null;
+        Calendar startDate = log.startDate;
+        Calendar cursor = Calendar.getInstance();
+        int bestStreak = 0;
+        int currentStreak = 0;
+        while(cursor.after(startDate)) {
+            if(freq.eventOccursWithinPeriod(log, cursor)) {
+                currentStreak++;
+            } else {
+                bestStreak = currentStreak > bestStreak ? currentStreak : bestStreak;
+                currentStreak = 0;
+            }
+            cursor.add(Calendar.DAY_OF_YEAR, -1);
+        }
+        bestStreak = currentStreak > bestStreak ? currentStreak : bestStreak;
+        
+        return new Streak(bestStreak, freq);
     }
 
     @Override

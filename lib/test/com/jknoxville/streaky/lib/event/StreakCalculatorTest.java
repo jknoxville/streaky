@@ -59,7 +59,6 @@ public class StreakCalculatorTest {
         
     }
 
-    @Ignore("Not yet ready")
     @Test
     public void testGetBestStreak() {
         for(CalcTestCase testCase: tests) {
