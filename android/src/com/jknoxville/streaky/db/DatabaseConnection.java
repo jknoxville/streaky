@@ -9,6 +9,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.util.SparseArray;
 
 import com.jknoxville.streaky.db.StreakyContract.Action;
@@ -21,6 +22,7 @@ import com.jknoxville.streaky.lib.event.StreakCalculatorFactory.Freq;
 public class DatabaseConnection {
 
     private static DatabaseConnection instance;
+    private static final String TAG = "DatabaseConnection";
 
     private SQLiteDatabase db;
 
@@ -92,7 +94,9 @@ public class DatabaseConnection {
             UserAction action = new UserAction(name, calc, id);
             actions.put(id, action);
             c.moveToNext();
+            Log.d(TAG, "Loaded action "+name);
         }
+        Log.d(TAG, "Loaded "+actions.size()+" actions from DB.");
         return actions;
     }
 
@@ -110,7 +114,10 @@ public class DatabaseConnection {
             cal.setTimeInMillis(milliseconds);
             action.addEvent(cal);
             c.moveToNext();
+            Log.d(TAG, "Loaded event at: "+cal.toString());
         }
+        
+        Log.d(TAG, "Loaded "+c.getCount()+" events from DB.");
     }
 
 }
