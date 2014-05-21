@@ -71,7 +71,7 @@ public class DatabaseConnection {
 
     }
 
-    private SparseArray<UserAction> readActions() {
+    SparseArray<UserAction> readActions() {
         SparseArray<UserAction> actions = new SparseArray<UserAction>();
         String[] projection = {
                 Action._ID,
