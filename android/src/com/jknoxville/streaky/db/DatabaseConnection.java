@@ -123,6 +123,7 @@ public class DatabaseConnection {
     public static void close() {
         if(instance != null) {
             instance.db.close();
+            instance = null;
             Log.d(TAG, "Database closed.");
         } else {
             Log.e(TAG, "Tried to close DB but it doesn't exist.");
