@@ -27,7 +27,9 @@ public class UserActionView extends LinearLayout {
         ICON_LENGTH     = dip(20),
         TOP_BAR_PADDING = dip(4),
         ACTION_MARGIN   = dip(10),
-        TEXT_COLOR      = Color.parseColor("#4C4C4C");
+        TEXT_COLOR      = Color.parseColor("#4C4C4C"),
+        ID_CURRENT_SCORE= 1,
+        SCORE_WIDTH     = 300;
     
     private static int childIndex = 0;
     private static int TOP_BAR_CHILD_INDEX = childIndex++;
@@ -90,14 +92,29 @@ public class UserActionView extends LinearLayout {
         mainContent.setPadding(padding, 0, padding, padding);
         mainContent.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         
-        TextView score = new TextView(context);
+        RelativeLayout.LayoutParams currParams = new RelativeLayout.LayoutParams(SCORE_WIDTH, LayoutParams.WRAP_CONTENT);
+        currParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        TextView currentScore = new TextView(context);
         Streak currentStreak = action.getCurrentStreak();
-        score.setText(
+        currentScore.setText(
                 currentStreak.amount+" "+
                 currentStreak.unit.getString(currentStreak.amount) );
-        score.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
-        score.setTextColor(TEXT_COLOR);
-        mainContent.addView(score);
+        currentScore.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
+        currentScore.setTextColor(TEXT_COLOR);
+        currentScore.setId(ID_CURRENT_SCORE);
+        mainContent.addView(currentScore, currParams);
+        
+        RelativeLayout.LayoutParams bestParams = new RelativeLayout.LayoutParams(SCORE_WIDTH, LayoutParams.WRAP_CONTENT);
+        bestParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        bestParams.addRule(RelativeLayout.RIGHT_OF, currentScore.getId());
+        TextView bestScore = new TextView(context);
+        Streak bestStreak = action.getBestStreak();
+        bestScore.setText(
+                bestStreak.amount+" "+
+                bestStreak.unit.getString(currentStreak.amount) );
+        bestScore.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
+        bestScore.setTextColor(TEXT_COLOR);
+        mainContent.addView(bestScore, bestParams);
         
         return mainContent;
     }

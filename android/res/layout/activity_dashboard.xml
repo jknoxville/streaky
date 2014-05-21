@@ -1,3 +1,7 @@
+
+<!-- The static content of this layout is here only for the purpose of
+     making experimental changes. When the code runs, this content is removed -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -62,6 +66,14 @@
                     android:textSize="30dp"
                     android:textColor="#4C4C4C"
                     android:layout_alignParentTop="true" />
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12 Days"
+                    android:textSize="30dp"
+                    android:textColor="#4C4C4C"
+                    android:layout_toRightOf="@id/textView1" />
                 
                 <TextView 
                     android:id="@+id/achievement1"
