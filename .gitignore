@@ -1,9 +1,16 @@
 .classpath
 .project
+
 lib/.settings/*
 android/.settings/*
+android-test/.settings/*
+
 lib/bin/*
 android/bin/*
+android-test/bin/*
+
 android/gen/*
+android-test/gen/*
 android/libs
+android-test/libs
 
