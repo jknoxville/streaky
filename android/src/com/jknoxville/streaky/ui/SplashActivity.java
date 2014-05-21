@@ -9,11 +9,12 @@ import android.view.Menu;
 
 import com.jknoxville.streaky.R;
 import com.jknoxville.streaky.db.DatabaseConnection;
-import com.jknoxville.streaky.lib.MockPerson;
 import com.jknoxville.streaky.lib.Person;
 import com.jknoxville.streaky.lib.UserAction;
 
 public class SplashActivity extends Activity {
+    
+    private static final int DASHBOARD_RESULT = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class SplashActivity extends Activity {
     
     private void onFinishedLoading() {
         Intent intent = new Intent(this, DashboardActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, DASHBOARD_RESULT);
     }
 
     @Override
@@ -41,4 +42,11 @@ public class SplashActivity extends Activity {
         return true;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        DatabaseConnection.close();
+        this.finish();
+    }
+    
 }

@@ -119,5 +119,15 @@ public class DatabaseConnection {
         
         Log.d(TAG, "Loaded "+c.getCount()+" events from DB.");
     }
+    
+    public static void close() {
+        if(instance != null) {
+            instance.db.close();
+            Log.d(TAG, "Database closed.");
+        } else {
+            Log.e(TAG, "Tried to close DB but it doesn't exist.");
+        }
+        
+    }
 
 }
