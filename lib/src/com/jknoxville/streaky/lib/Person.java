@@ -30,7 +30,7 @@ public class Person {
     public synchronized UserAction newUserAction(String name, StreakCalculator calc) throws NameAlreadyExistsException {
         validateName(name);
         int id = getNextUserActionID();
-        UserAction action = new UserAction(name, calc, id);
+        UserAction action = new UserAction(name, calc, id, null);
         addUserAction(action);
         return action;
     }

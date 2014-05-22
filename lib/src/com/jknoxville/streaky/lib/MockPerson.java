@@ -12,7 +12,7 @@ public class MockPerson extends Person {
     }
     
     public static void addMockActivity(Person p) {
-        p.addUserAction(new UserAction("testAction", StreakCalculatorFactory.getLengthStreakCalculator(StreakCalculatorFactory.Freq.DAY), 0));
+        p.addUserAction(new UserAction("testAction", StreakCalculatorFactory.getLengthStreakCalculator(StreakCalculatorFactory.Freq.DAY), 0, null));
         timesMocked++;
     }
 

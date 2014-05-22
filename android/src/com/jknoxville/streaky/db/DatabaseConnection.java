@@ -60,7 +60,7 @@ public class DatabaseConnection {
         return id >= 0;
     }
 
-    public Collection<UserAction> getUserActions() {
+    public List<UserAction> getUserActions() {
         SparseArray<UserAction> actions = readActions();
         loadEvents(actions);
         List<UserAction> actionList = new LinkedList<UserAction>();
@@ -90,8 +90,11 @@ public class DatabaseConnection {
             // TODO check that period == 1 and unit == "DAY" when more types are introduced
             StreakCalculator calc = StreakCalculatorFactory.getLengthStreakCalculator(Freq.DAY);
             String name = c.getString(c.getColumnIndexOrThrow(Action.COLUMN_NAME_ACTION_NAME));
+            Long creationTime = c.getLong(c.getColumnIndexOrThrow(Action.COLUMN_NAME_CREATION_DATE));
+            Calendar creationDate = Calendar.getInstance();
+            creationDate.setTimeInMillis(creationTime);
             int id = Long.valueOf(c.getLong(c.getColumnIndexOrThrow(Action._ID))).intValue();
-            UserAction action = new UserAction(name, calc, id);
+            UserAction action = new UserAction(name, calc, id, creationDate);
             actions.put(id, action);
             c.moveToNext();
             Log.d(TAG, "Loaded action "+name);

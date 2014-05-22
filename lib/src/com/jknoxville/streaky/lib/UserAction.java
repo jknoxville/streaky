@@ -16,12 +16,12 @@ public class UserAction implements Comparable<UserAction> {
 	private final Calendar creationDate;
 	
 	// TODO: pass in eventlog to constructor
-	public UserAction(String name, StreakCalculator calc, int id) {
+	public UserAction(String name, StreakCalculator calc, int id, Calendar creationDate) {
 	    this.name = name;
 	    this.eventLog = new EventLog();
 	    this.calculator = calc;
 	    this.id = id;
-	    this.creationDate = Calendar.getInstance();
+	    this.creationDate = creationDate != null ? creationDate : Calendar.getInstance();
 	}
 	
 	public Streak getCurrentStreak() {
@@ -61,6 +61,10 @@ public class UserAction implements Comparable<UserAction> {
 	
 	public void addEvent(Calendar cal) {
 	    eventLog.addEvent(cal);
+	}
+	
+	public EventLog getEventLog() {
+	    return eventLog;
 	}
 
 	@Override
