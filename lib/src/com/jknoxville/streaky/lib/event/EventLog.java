@@ -17,10 +17,10 @@ public class EventLog {
 	Map<Integer, TreeMap<Integer, TreeMap<Integer, List<Event>>>> yearsByWeek;
 	protected final Calendar startDate;
 
-	public EventLog() {
+	public EventLog(Calendar startDate) {
 		yearsByMonth = new TreeMap<Integer, TreeMap<Integer, TreeMap<Integer, List<Event>>>>();
 		yearsByWeek = new TreeMap<Integer, TreeMap<Integer, TreeMap<Integer, List<Event>>>>();
-		startDate = Calendar.getInstance();
+		this.startDate = startDate;
 	}
 	
 	public void addEvent(Calendar cal) {
