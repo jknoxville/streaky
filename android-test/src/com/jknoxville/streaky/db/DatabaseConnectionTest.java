@@ -79,4 +79,17 @@ public class DatabaseConnectionTest extends AndroidTestCase {
         assertTrue(readAction.getEventLog().containsEventInDay(now.get(Calendar.YEAR), now.get(Calendar.WEEK_OF_YEAR), now.get(Calendar.DAY_OF_WEEK)));
     }
     
+    public void testDeleteActivity() {
+        UserAction writtenAction = testAction;
+        Calendar now = Calendar.getInstance();
+        db.writeAction(writtenAction);
+        testAction.addEvent(now);
+        db.writeEvent(writtenAction, now);
+        UserAction readAction1 = db.getUserActions().get(0);
+        
+        db.deleteAction(readAction1);
+        List<UserAction> actions = db.getUserActions();
+        assertEquals(0, actions.size());
+    }
+    
 }

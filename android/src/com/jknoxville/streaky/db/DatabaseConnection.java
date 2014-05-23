@@ -50,7 +50,7 @@ public class DatabaseConnection {
         Long id = db.insert(Action.TABLE_NAME, null, values);
         return id >= 0;
     }
-    
+
     public boolean writeEvent(UserAction action, Calendar cal) {
         ContentValues values = new ContentValues();
         values.put(Event.COLUMN_NAME_USER_ACTION, action.getID());
@@ -111,23 +111,26 @@ public class DatabaseConnection {
         c.moveToFirst();
         while(!c.isAfterLast()) {
             UserAction action = actions.get((int) c.getLong(c.getColumnIndexOrThrow(Event.COLUMN_NAME_USER_ACTION)));
-            Long milliseconds = c.getLong(c.getColumnIndexOrThrow(Event.COLUMN_NAME_EVENT_TIME));
-            Calendar cal = Calendar.getInstance();
-            cal.setTimeInMillis(milliseconds);
-            action.addEvent(cal);
+            if(action != null) {
+                Long milliseconds = c.getLong(c.getColumnIndexOrThrow(Event.COLUMN_NAME_EVENT_TIME));
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(milliseconds);
+                action.addEvent(cal);
+                Log.d(TAG, "Loaded event at: "+cal.toString());
+            }
+
             c.moveToNext();
-            Log.d(TAG, "Loaded event at: "+cal.toString());
         }
-        
+
         Log.d(TAG, "Loaded "+c.getCount()+" events from DB.");
     }
-    
+
     public void deleteAction(UserAction action) {
         String idString = String.valueOf(action.getID());
         String cmd = StreakyContract.getDeleteActionSQL(idString);
         db.execSQL(cmd);
     }
-    
+
     public static void close() {
         if(instance != null) {
             instance.db.close();
@@ -136,7 +139,7 @@ public class DatabaseConnection {
         } else {
             Log.e(TAG, "Tried to close DB but it doesn't exist.");
         }
-        
+
     }
 
 }
