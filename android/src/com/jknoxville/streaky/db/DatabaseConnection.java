@@ -122,6 +122,12 @@ public class DatabaseConnection {
         Log.d(TAG, "Loaded "+c.getCount()+" events from DB.");
     }
     
+    public void deleteAction(UserAction action) {
+        String idString = String.valueOf(action.getID());
+        String cmd = StreakyContract.getDeleteActionSQL(idString);
+        db.execSQL(cmd);
+    }
+    
     public static void close() {
         if(instance != null) {
             instance.db.close();

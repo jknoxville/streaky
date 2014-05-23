@@ -29,7 +29,9 @@ public final class StreakyContract {
                     Action.COLUMN_NAME_PERIOD_UNIT + " TEXT NOT NULL, " +
                     Action.COLUMN_NAME_CALCULATOR_TYPE + " TEXT NOT NULL, " +
                     Action.COLUMN_NAME_IS_DELETED + " INTEGER DEFAULT 0 " +
-                ");";
+                ");",
+        SQL_DELETE_ACTION =
+                "DELETE FROM "+Action.TABLE_NAME + " WHERE " + Action._ID + " = \"";
     
     public static abstract class Event implements BaseColumns {
         public static final String 
@@ -47,6 +49,10 @@ public final class StreakyContract {
             COLUMN_NAME_PERIOD_UNIT = "time_period_unit",
             COLUMN_NAME_CALCULATOR_TYPE = "calculator_type",
             COLUMN_NAME_IS_DELETED = "is_deleted";
+    }
+    
+    public static String getDeleteActionSQL(String actionID) {
+        return SQL_DELETE_ACTION + actionID + "\";";
     }
 
 }

@@ -44,6 +44,13 @@ public class UserActionActivity extends Activity {
         invalidateView();
     }
     
+    public void onRemoveActivity(View view) {
+        Person.getInstance().removeUserAction(action);
+        DatabaseConnection.getInstance(this).deleteAction(action);
+        action = null;
+        this.finish();
+    }
+    
     private void invalidateView() {
         // TODO
         TextView tv = (TextView) findViewById(R.id.test_text);
