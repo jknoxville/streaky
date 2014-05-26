@@ -12,6 +12,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_user_action">Activity</string>
     <string name="checkin_button_text">Check in</string>
-    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_splash">Streaky</string>
 
 </resources>
