@@ -29,7 +29,7 @@ public class UserActionActivity extends Activity {
         if(userActionID < 0) {
             this.finish();
         }
-        this.action = Person.getInstance().getActions().get(userActionID);
+        this.action = Person.getInstance().getAction(userActionID);
         addViews();
     }
     
@@ -74,6 +74,9 @@ public class UserActionActivity extends Activity {
             case android.R.id.home :
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
+            case R.id.action_remove :
+                this.onRemoveActivity(findViewById(R.id.action_remove));
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

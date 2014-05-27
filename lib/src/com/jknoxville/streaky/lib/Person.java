@@ -1,8 +1,8 @@
 package com.jknoxville.streaky.lib;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.jknoxville.streaky.error.NameAlreadyExistsException;
 import com.jknoxville.streaky.lib.event.StreakCalculator;
@@ -10,7 +10,7 @@ import com.jknoxville.streaky.lib.event.StreakCalculator;
 public class Person {
     
     private static Person instance;
-    List<UserAction> actions;
+    Map<Integer, UserAction> actions;
     
     public static Person getInstance() {
         if(instance == null) {
@@ -20,11 +20,15 @@ public class Person {
     }
     
     protected Person() {
-        actions = new ArrayList<UserAction>();
+        actions = new HashMap<Integer, UserAction>();
     }
     
-    public List<UserAction> getActions() {
-        return actions;
+    public Collection<UserAction> getActions() {
+        return actions.values();
+    }
+    
+    public UserAction getAction(int actionID) {
+        return actions.get(actionID);
     }
     
     public synchronized UserAction newUserAction(String name, StreakCalculator calc) throws NameAlreadyExistsException {
@@ -36,16 +40,16 @@ public class Person {
     }
     
     public void addUserAction(UserAction action) {
-        actions.add(action);
+        actions.put(action.getID(), action);
     }
     
     public void removeUserAction(UserAction action) {
         //TODO Remove from DB or at least mark it as removed in DB
-        actions.remove(action);
+        actions.remove(action.getID());
     }
     
     private void validateName(String name) throws NameAlreadyExistsException {
-        for(UserAction action: this.actions) {
+        for(UserAction action: actions.values()) {
             if(name.contentEquals(action.getName())) {
                 throw new NameAlreadyExistsException();
             }
