@@ -8,6 +8,7 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jknoxville.streaky.Constants;
@@ -36,6 +37,9 @@ public class UserActionActivity extends Activity {
     private void addViews() {
         TextView tv = (TextView) findViewById(R.id.test_text);
         tv.setText(action.getName()+": "+action.getCurrentStreak().amount);
+        LinearLayout layout = (LinearLayout) findViewById(R.id.relative_layout);
+        UserActionLogView logView = new UserActionLogView(this, action);
+        layout.addView(logView, 1);
     }
     
     public void onCheckin(View view) {

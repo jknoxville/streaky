@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 public class EventLog {
@@ -13,8 +15,8 @@ public class EventLog {
 	 *  Year -> Month -> Day
 	 *  Year -> Week  -> Day
 	 */
-	Map<Integer, TreeMap<Integer, TreeMap<Integer, List<Event>>>> yearsByMonth;
-	Map<Integer, TreeMap<Integer, TreeMap<Integer, List<Event>>>> yearsByWeek;
+	SortedMap<Integer, TreeMap<Integer, TreeMap<Integer, List<Event>>>> yearsByMonth;
+	SortedMap<Integer, TreeMap<Integer, TreeMap<Integer, List<Event>>>> yearsByWeek;
 	protected final Calendar startDate;
 
 	public EventLog(Calendar startDate) {
@@ -74,6 +76,17 @@ public class EventLog {
 	
 	public Calendar getStartDate() {
 	    return startDate;
+	}
+	
+	public List<Boolean> getOccurences(int range) {
+	    List<Boolean> occurences = new LinkedList<Boolean>();
+	    Calendar cursor = Calendar.getInstance();
+	    cursor.add(Calendar.DAY_OF_YEAR, 1-range);
+	    for(int i=0; i<range; i++) {
+	        occurences.add(containsEventInDay(cursor.get(Calendar.YEAR), cursor.get(Calendar.WEEK_OF_YEAR), cursor.get(Calendar.DAY_OF_WEEK)));
+	        cursor.add(Calendar.DAY_OF_YEAR, 1);
+	    }
+	    return occurences;
 	}
 
 }
