@@ -41,13 +41,21 @@ public class NewActivity extends Activity {
 
     public void onSaveActivity(View view) {
         if(hasRequiredInfo()) {
-            try {
-                UserAction action = Person.getInstance().newUserAction(readName(), getCalculator());
-                DatabaseConnection.getInstance(this).writeAction(action);
-                finish();
-            } catch(NameAlreadyExistsException e) {
-                promptForNonExistentName();
-            }
+            final Activity thisActivity = this;
+            
+            new Runnable() {
+                @Override
+                public void run() {
+                    UserAction action;
+                    try {
+                        action = Person.getInstance().newUserAction(readName(), getCalculator());
+                        DatabaseConnection.getInstance(thisActivity).writeAction(action);
+                        thisActivity.finish();
+                    } catch (NameAlreadyExistsException e) {
+                        promptForNonExistentName();
+                    }
+                }
+            }.run();
 
         } else {
             promptForMissingInfo();
