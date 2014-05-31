@@ -43,9 +43,17 @@ public class UserActionActivity extends Activity {
     }
     
     public void onCheckin(View view) {
-        Calendar event = this.action.newEvent();
-        DatabaseConnection.getInstance(this).writeEvent(action, event);
-        invalidateView();
+        final UserActionActivity thisActivity = this;
+        
+        new Runnable() {
+            @Override
+            public void run() {
+                Calendar event = thisActivity.action.newEvent();
+                DatabaseConnection.getInstance(thisActivity).writeEvent(action, event);
+                thisActivity.invalidateView();
+            }
+        }.run();
+        
     }
     
     public void onRemoveActivity(View view) {
