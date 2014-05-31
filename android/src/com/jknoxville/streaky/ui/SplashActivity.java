@@ -21,8 +21,11 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         
+        spawnDatabaseLoadingThread();
+    }
+    
+    private void spawnDatabaseLoadingThread() {
         final SplashActivity splash = this;
-        
         new Runnable() {
             @Override
             public void run() {
