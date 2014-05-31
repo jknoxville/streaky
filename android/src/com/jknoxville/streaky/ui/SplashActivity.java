@@ -20,14 +20,21 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        DatabaseConnection db = DatabaseConnection.getInstance(this);
-        Person self = Person.getInstance();
         
-        // TODO: Read from database in a new thread
-        Collection<UserAction> actions = db.getUserActions();
-        self.initialise(actions);
+        final SplashActivity splash = this;
         
-        onFinishedLoading();
+        new Runnable() {
+            @Override
+            public void run() {
+                DatabaseConnection db = DatabaseConnection.getInstance(splash);
+                Person self = Person.getInstance();
+                
+                Collection<UserAction> actions = db.getUserActions();
+                self.initialise(actions);  
+                
+                splash.onFinishedLoading();
+            }
+        }.run();
     }
     
     private void onFinishedLoading() {
