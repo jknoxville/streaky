@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.jknoxville.streaky.error.NameAlreadyExistsException;
 import com.jknoxville.streaky.lib.event.StreakCalculator;
+import com.jknoxville.streaky.ui.ActivityIcon;
 
 public class Person {
     
@@ -31,10 +32,10 @@ public class Person {
         return actions.get(actionID);
     }
     
-    public synchronized UserAction newUserAction(String name, StreakCalculator calc) throws NameAlreadyExistsException {
+    public synchronized UserAction newUserAction(String name, StreakCalculator calc, ActivityIcon icon) throws NameAlreadyExistsException {
         validateName(name);
         int id = getNextUserActionID();
-        UserAction action = new UserAction(name, calc, id, null);
+        UserAction action = new UserAction(name, calc, id, null, icon);
         addUserAction(action);
         return action;
     }

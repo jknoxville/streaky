@@ -68,7 +68,7 @@ public class UserActionView extends LinearLayout {
         topBar.setGravity(Gravity.CENTER_VERTICAL);
         
         ImageView icon = new ImageView(context);
-        Drawable iconDrawable = getResources().getDrawable(R.drawable.running);
+        Drawable iconDrawable = getResources().getDrawable(action.getIcon().drawableId);
         icon.setImageDrawable(iconDrawable);
         int dipIconLength = dip(ICON_LENGTH);
         LayoutParams iconParams = new LayoutParams(dipIconLength, dipIconLength);

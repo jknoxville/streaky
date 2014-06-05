@@ -1,6 +1,7 @@
 package com.jknoxville.streaky.lib;
 
 import com.jknoxville.streaky.lib.event.StreakCalculatorFactory;
+import com.jknoxville.streaky.ui.ActivityIcon;
 
 public class MockPerson extends Person {
     
@@ -12,7 +13,7 @@ public class MockPerson extends Person {
     }
     
     public static void addMockActivity(Person p) {
-        p.addUserAction(new UserAction("testAction", StreakCalculatorFactory.getLengthStreakCalculator(StreakCalculatorFactory.Freq.DAY), 0, null));
+        p.addUserAction(new UserAction("testAction", StreakCalculatorFactory.getLengthStreakCalculator(StreakCalculatorFactory.Freq.DAY), 0, null, ActivityIcon.BASKETBALL));
         timesMocked++;
     }
 

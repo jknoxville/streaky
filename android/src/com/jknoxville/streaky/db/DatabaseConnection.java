@@ -17,6 +17,7 @@ import com.jknoxville.streaky.lib.UserAction;
 import com.jknoxville.streaky.lib.event.StreakCalculator;
 import com.jknoxville.streaky.lib.event.StreakCalculatorFactory;
 import com.jknoxville.streaky.lib.event.StreakCalculatorFactory.Freq;
+import com.jknoxville.streaky.ui.ActivityIcon;
 
 public class DatabaseConnection {
 
@@ -47,6 +48,7 @@ public class DatabaseConnection {
         values.put(Action.COLUMN_NAME_CALCULATOR_TYPE, action.getStreakType().toString());
         values.put(Action.COLUMN_NAME_PERIOD, action.getStreakPeriod());
         values.put(Action.COLUMN_NAME_PERIOD_UNIT, action.getStreakUnit().name());
+        values.put(Action.COLUMN_NAME_ICON, action.getIcon().name());
         Long id = db.insert(Action.TABLE_NAME, null, values);
         return id >= 0;
     }
@@ -79,7 +81,8 @@ public class DatabaseConnection {
                 Action.COLUMN_NAME_CREATION_DATE,
                 Action.COLUMN_NAME_IS_DELETED,
                 Action.COLUMN_NAME_PERIOD,
-                Action.COLUMN_NAME_PERIOD_UNIT
+                Action.COLUMN_NAME_PERIOD_UNIT,
+                Action.COLUMN_NAME_ICON
         };
         Cursor c = db.query(Action.TABLE_NAME, projection, null, null, null, null, null);
         c.moveToFirst();
@@ -93,7 +96,9 @@ public class DatabaseConnection {
             Calendar creationDate = Calendar.getInstance();
             creationDate.setTimeInMillis(creationTime);
             int id = Long.valueOf(c.getLong(c.getColumnIndexOrThrow(Action._ID))).intValue();
-            UserAction action = new UserAction(name, calc, id, creationDate);
+            String iconName = c.getString(c.getColumnIndexOrThrow(Action.COLUMN_NAME_ICON));
+            ActivityIcon icon = ActivityIcon.valueOf(iconName);
+            UserAction action = new UserAction(name, calc, id, creationDate, icon);
             actions.put(id, action);
             c.moveToNext();
             Log.d(TAG, "Loaded action "+name);

@@ -27,6 +27,7 @@ public class NewActivity extends Activity {
         // Show the Up button in the action bar.
         setupActionBar();
         setupSpinner();
+        setupIconGallery();
     }
 
     private void setupSpinner() {
@@ -38,6 +39,11 @@ public class NewActivity extends Activity {
     private void setupActionBar() {
         getActionBar().setDisplayHomeAsUpEnabled(true);
     }
+    
+    // TODO
+    private void setupIconGallery() {
+
+    }
 
     public void onSaveActivity(View view) {
         if(hasRequiredInfo()) {
@@ -48,7 +54,7 @@ public class NewActivity extends Activity {
                 public void run() {
                     UserAction action;
                     try {
-                        action = Person.getInstance().newUserAction(readName(), getCalculator());
+                        action = Person.getInstance().newUserAction(readName(), getCalculator(), readIcon());
                         DatabaseConnection.getInstance(thisActivity).writeAction(action);
                         thisActivity.finish();
                     } catch (NameAlreadyExistsException e) {
@@ -87,6 +93,9 @@ public class NewActivity extends Activity {
         Spinner targetSelector = (Spinner) findViewById(R.id.freq_spinner);
         Freq target = (Freq) targetSelector.getSelectedItem();
         return StreakCalculatorFactory.getLengthStreakCalculator(target);
+    }
+    private ActivityIcon readIcon() {
+        return ActivityIcon.RUNNING;
     }
     private boolean hasRequiredInfo() {
         return !readName().isEmpty();
