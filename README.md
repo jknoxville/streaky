@@ -1,5 +1,5 @@
 # Streaky
-### An android app for continuous monitoring of achievements
+### An android app to motivate you to keep doing stuff
 
 #### Initial basic functions
 * Create new activity
@@ -9,4 +9,3 @@
 #### Project Structure
 * **android**: App Source
 * **android-test**: Tests
-
