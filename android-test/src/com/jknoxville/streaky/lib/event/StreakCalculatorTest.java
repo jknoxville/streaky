@@ -1,35 +1,23 @@
 package com.jknoxville.streaky.lib.event;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import junit.framework.Assert;
+import junit.framework.TestCase;
 
 import com.jknoxville.streaky.lib.Streak;
 
-@RunWith(value = Parameterized.class)
-public class StreakCalculatorTest {
+public class StreakCalculatorTest extends TestCase {
     
-    @Parameters
-    public static List<Object[]> data() {
-        Object[][] data = new Object[][] {{new LengthStreakCalculator(new DayFrequency())}};
-        return Arrays.asList(data);
-    }
+    private StreakCalculator calculator;
+    private List<CalcTestCase> tests;
     
-    private final StreakCalculator calculator;
-    private final List<CalcTestCase> tests;
-    
-    public StreakCalculatorTest(StreakCalculator calc) throws Exception {
-        this.calculator = calc;
+    public void setUp() throws Exception {
+        this.calculator = new LengthStreakCalculator(new DayFrequency());
         tests = new LinkedList<CalcTestCase>();
+        
+        System.out.println("here");
        
         tests.add(new CalcTestCase("0").setCurrentStreak(0).setBestStreak(0));
         tests.add(new CalcTestCase("1").setCurrentStreak(1).setBestStreak(1));
@@ -42,35 +30,25 @@ public class StreakCalculatorTest {
         tests.add(new CalcTestCase("0110100100111100").setCurrentStreak(0).setBestStreak(4));
         tests.add(new CalcTestCase("100010110110110111110110101111").setCurrentStreak(4).setBestStreak(5));
     }
-    
-    @Before
-    public void setUp() {
-        //TODO
-    }
 
-    @Test
     public void testGetCurrentStreak() {
         for(CalcTestCase testCase: tests) {
             Streak streak = calculator.getCurrentStreak(testCase.log);
-            assertEquals("Testcase: "+testCase.logString, StreakUnit.DAY, streak.unit);
-            assertEquals("Testcase: "+testCase.logString, testCase.currentStreak, streak.amount);
+            Assert.assertSame("Testcase: "+testCase.logString, StreakUnit.DAY, streak.unit);
+            Assert.assertSame("Testcase: "+testCase.logString, testCase.currentStreak, streak.amount);
         }
         
     }
 
-    @Test
     public void testGetBestStreak() {
         for(CalcTestCase testCase: tests) {
             Streak streak = calculator.getBestStreak(testCase.log);
-            assertEquals("Testcase: "+testCase.logString, StreakUnit.DAY, streak.unit);
-            assertEquals("Testcase: "+testCase.logString, testCase.bestStreak, streak.amount);
+            Assert.assertEquals("Testcase: "+testCase.logString, StreakUnit.DAY, streak.unit);
+            Assert.assertEquals("Testcase: "+testCase.logString, testCase.bestStreak, streak.amount);
         }
     }
 
-    //@Test
-    public void testGetPreviousStreak() {
-        fail("Not yet implemented");
-    }
+    // TODO testGetPreviousStreak()
     
     public class CalcTestCase {
         public EventLog log;

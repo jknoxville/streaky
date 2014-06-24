@@ -7,6 +7,6 @@
 * View current streak for each activity
 
 #### Project Structure
-* **lib**: Pure java code + tests
-* **android**: Android-specific code
-* **android-test**: Tests for android-specific components
+* **android**: App Source
+* **android-test**: Tests
+
