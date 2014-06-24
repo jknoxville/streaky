@@ -10,6 +10,7 @@ import android.util.SparseArray;
 import com.jknoxville.streaky.lib.UserAction;
 import com.jknoxville.streaky.lib.event.DayFrequency;
 import com.jknoxville.streaky.lib.event.LengthStreakCalculator;
+import com.jknoxville.streaky.ui.ActivityIcon;
 
 public class DatabaseConnectionTest extends AndroidTestCase {
     
@@ -25,7 +26,7 @@ public class DatabaseConnectionTest extends AndroidTestCase {
         RenamingDelegatingContext context = new RenamingDelegatingContext(getContext(), TEST_FILE_PREFIX);
         db = DatabaseConnection.getInstance(context);
         
-        testAction = new UserAction("TestAction", new LengthStreakCalculator(new DayFrequency()), 0, null);
+        testAction = new UserAction("TestAction", new LengthStreakCalculator(new DayFrequency()), 0, null, ActivityIcon.CLIMBING);
     }
     
     @Override
