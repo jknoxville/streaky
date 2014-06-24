@@ -27,13 +27,13 @@ public class UserAction implements Comparable<UserAction> {
 	}
 	
 	public Streak getCurrentStreak() {
-		return calculator.getCurrentStreak(eventLog);
+		return calculator.getCurrentStreak(eventLog, Calendar.getInstance());
 	}
 	public Streak getBestStreak() {
-		return calculator.getBestStreak(eventLog);
+		return calculator.getBestStreak(eventLog, Calendar.getInstance());
 	}
 	public Streak getPreviousStreak() {
-		return calculator.getPreviousStreak(eventLog);
+		return calculator.getPreviousStreak(eventLog, Calendar.getInstance());
 	}
 
 	public String getName() {

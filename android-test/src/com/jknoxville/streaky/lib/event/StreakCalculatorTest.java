@@ -1,5 +1,6 @@
 package com.jknoxville.streaky.lib.event;
 
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class StreakCalculatorTest extends TestCase {
 
     public void testGetCurrentStreak() {
         for(CalcTestCase testCase: tests) {
-            Streak streak = calculator.getCurrentStreak(testCase.log);
+            Streak streak = calculator.getCurrentStreak(testCase.log, Calendar.getInstance());
             Assert.assertSame("Testcase: "+testCase.logString, StreakUnit.DAY, streak.unit);
             Assert.assertSame("Testcase: "+testCase.logString, testCase.currentStreak, streak.amount);
         }
@@ -39,10 +40,31 @@ public class StreakCalculatorTest extends TestCase {
 
     public void testGetBestStreak() {
         for(CalcTestCase testCase: tests) {
-            Streak streak = calculator.getBestStreak(testCase.log);
+            Streak streak = calculator.getBestStreak(testCase.log, Calendar.getInstance());
             Assert.assertEquals("Testcase: "+testCase.logString, StreakUnit.DAY, streak.unit);
             Assert.assertEquals("Testcase: "+testCase.logString, testCase.bestStreak, streak.amount);
         }
+    }
+    
+    // Test the case where a streak starts the day after an activity is created,
+    // at a time of day that is earlier than when it was created
+    public void testLateStartDateEarlyStreak() {
+
+        Calendar startDate = Calendar.getInstance();
+        if(startDate.get(Calendar.DAY_OF_YEAR) > 360) {
+            startDate.add(Calendar.DAY_OF_YEAR, -100);
+        }
+        Calendar eventDate1 = (Calendar) startDate.clone();
+        Calendar eventDate2 = (Calendar) startDate.clone();
+        
+        eventDate1.add(Calendar.HOUR_OF_DAY, 1);
+        
+        eventDate2.add(Calendar.HOUR_OF_DAY, -1);
+        eventDate2.add(Calendar.DAY_OF_YEAR, 1);
+
+        EventLog log = new MockEventLog(startDate);
+        log.addEvent(eventDate1);
+        Assert.assertEquals(1, calculator.getCurrentStreak(log, eventDate2).amount);
     }
 
     // TODO testGetPreviousStreak()

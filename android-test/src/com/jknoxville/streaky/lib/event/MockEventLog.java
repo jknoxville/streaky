@@ -24,4 +24,8 @@ public class MockEventLog extends EventLog {
             }
         }
     }
+    
+    public MockEventLog(Calendar startDate) {
+        super(startDate);
+    }
 }
