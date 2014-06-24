@@ -16,8 +16,6 @@ public class StreakCalculatorTest extends TestCase {
     public void setUp() throws Exception {
         this.calculator = new LengthStreakCalculator(new DayFrequency());
         tests = new LinkedList<CalcTestCase>();
-        
-        System.out.println("here");
        
         tests.add(new CalcTestCase("0").setCurrentStreak(0).setBestStreak(0));
         tests.add(new CalcTestCase("1").setCurrentStreak(1).setBestStreak(1));
@@ -37,7 +35,6 @@ public class StreakCalculatorTest extends TestCase {
             Assert.assertSame("Testcase: "+testCase.logString, StreakUnit.DAY, streak.unit);
             Assert.assertSame("Testcase: "+testCase.logString, testCase.currentStreak, streak.amount);
         }
-        
     }
 
     public void testGetBestStreak() {
