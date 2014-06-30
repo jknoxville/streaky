@@ -2,7 +2,7 @@ package com.jknoxville.streaky.lib.event;
 
 import java.util.Calendar;
 
-public class DayFrequency extends Frequency {
+public class Day extends TimePeriod {
     
     private static final int NUM_DAYS = 1;
     private static final StreakUnit unit = StreakUnit.DAY;

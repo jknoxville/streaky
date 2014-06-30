@@ -15,7 +15,7 @@ public class StreakCalculatorTest extends TestCase {
     private List<CalcTestCase> tests;
     
     public void setUp() throws Exception {
-        this.calculator = new LengthStreakCalculator(new DayFrequency());
+        this.calculator = new LengthStreakCalculator(new Day());
         tests = new LinkedList<CalcTestCase>();
        
         tests.add(new CalcTestCase("0").setCurrentStreak(0).setBestStreak(0));

@@ -6,11 +6,11 @@ import com.jknoxville.streaky.lib.Streak;
 
 public class LengthStreakCalculator implements StreakCalculator {
 
-    private final Frequency freq;
+    private final TimePeriod period;
     private static final StreakType type = StreakType.LENGTH;
 
-    public LengthStreakCalculator(Frequency freq) {
-        this.freq = freq;
+    public LengthStreakCalculator(TimePeriod period) {
+        this.period = period;
     }
 
     @Override
@@ -20,31 +20,31 @@ public class LengthStreakCalculator implements StreakCalculator {
     }
     
     private Streak getStreakEndingAt(EventLog log, Calendar endpoint) {
-        boolean hasLatestEventBeenDone = freq.eventOccursWithinPeriod(log, endpoint);
+        boolean hasLatestEventBeenDone = period.eventOccursWithinPeriod(log, endpoint);
         
         int streakLength = hasLatestEventBeenDone ? 1 : 0;
         boolean inStreak = true;
         Calendar instant = endpoint;
-        freq.setToPreviousPeriod(instant);
+        period.setToPreviousPeriod(instant);
         while(inStreak && isInSameOrLaterDay(instant, log.startDate)) {
-            if(freq.eventOccursWithinPeriod(log, instant)) {
+            if(period.eventOccursWithinPeriod(log, instant)) {
                 streakLength++;
             } else {
                 break;
             }
-            freq.setToPreviousPeriod(instant);
+            period.setToPreviousPeriod(instant);
         }
-        return new Streak(streakLength, freq);
+        return new Streak(streakLength, period);
     }
     
     public StreakType getType() {
         return type;
     }
     public int getPeriod() {
-        return this.freq.getPeriod();
+        return this.period.getPeriod();
     }
     public StreakUnit getUnit() {
-        return this.freq.getUnit();
+        return this.period.getUnit();
     }
     
     private boolean isInSameOrLaterDay(Calendar thisCal, Calendar thatCal) {
@@ -59,7 +59,7 @@ public class LengthStreakCalculator implements StreakCalculator {
         int bestStreak = 0;
         int currentStreak = 0;
         while(now.after(startDate)) {
-            if(freq.eventOccursWithinPeriod(log, now)) {
+            if(period.eventOccursWithinPeriod(log, now)) {
                 currentStreak++;
             } else {
                 bestStreak = currentStreak > bestStreak ? currentStreak : bestStreak;
@@ -69,7 +69,7 @@ public class LengthStreakCalculator implements StreakCalculator {
         }
         bestStreak = currentStreak > bestStreak ? currentStreak : bestStreak;
         
-        return new Streak(bestStreak, freq);
+        return new Streak(bestStreak, period);
     }
 
     @Override
