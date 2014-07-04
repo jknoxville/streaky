@@ -3,6 +3,7 @@ package com.jknoxville.streaky.lib.event.time;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.jknoxville.streaky.error.OutOfBoundsException;
 import com.jknoxville.streaky.lib.event.time.Moment;
 import com.jknoxville.streaky.lib.event.time.TimePeriod2;
 import com.jknoxville.streaky.lib.event.time.UnixTimeMoment;
@@ -11,15 +12,57 @@ import android.test.AndroidTestCase;
 
 public class MomentTest extends AndroidTestCase {
     
-    List<MomentTestCase> tests;
-    List<TimePeriod2> periods;
+    private static final long oneDayInMillis = 1000*60*60*24;
+    
+    private final TimePeriod2[] periods = TimePeriod2.values();
+    
+    private List<MomentTestCase> earlyTests;
+    private List<MomentTestCase> lateTests;
+    private List<MomentTestCase> typicalTests;
+    private List<List<MomentTestCase>> allTests;
+    
+    long[] tooEarlyTestTimes = {
+            0, 1, 23, oneDayInMillis, oneDayInMillis + 500
+            };
+    
+    long[] typicalTestTimes = {
+            2*oneDayInMillis, 2*oneDayInMillis + 500, 345*oneDayInMillis
+            };
+    
+    long[] tooLateTestTimes = {
+            Long.MAX_VALUE - oneDayInMillis, Long.MAX_VALUE - 500 - oneDayInMillis
+            };
     
     public void setUp() {
-        tests = new LinkedList<MomentTestCase>();
-        periods = new LinkedList<TimePeriod2>();
+        earlyTests = new LinkedList<MomentTestCase>();
+        for (long time: tooEarlyTestTimes) {
+            earlyTests.add(new MomentTestCase(time));
+        }
+        
+        lateTests = new LinkedList<MomentTestCase>();
+        for (long time: tooLateTestTimes) {
+            lateTests.add(new MomentTestCase(time));
+        }
+        
+        typicalTests = new LinkedList<MomentTestCase>();
+        for (long time: typicalTestTimes) {
+            typicalTests.add(new MomentTestCase(time));
+        }
+        
+        allTests = new LinkedList<List<MomentTestCase>>();
+        allTests.add(earlyTests);
+        allTests.add(lateTests);
+        allTests.add(typicalTests);
+        
     }
     
-    public void testGetAbsoluteTimeInPeriod() {
+    public void testGetAbsoluteTimeInPeriods() {
+        for (List<MomentTestCase> testList: allTests) {
+            getAbsoluteTimeInPeriodTestHelper(testList);
+        }
+    }
+    
+    public void getAbsoluteTimeInPeriodTestHelper(List<MomentTestCase> tests) {
         for(MomentTestCase test: tests) {
             Moment moment = test.getMoment();
             for (TimePeriod2 period: periods) {
@@ -29,7 +72,33 @@ public class MomentTest extends AndroidTestCase {
         }
     }
     
-    public void testGetNextAndPreviousMoments() {
+    public void testGetNextAndPreviousMomentsForEarlyTimes() {
+        try {
+            getNextAndPreviousMomentsTestHelper(earlyTests);
+            fail("No OutOfBoundsException thrown");
+        } catch (OutOfBoundsException e) {
+            // Test passes
+        }
+    }
+    
+    public void testGetNextAndPreviousMomentsForLateTimes() {
+        try {
+            getNextAndPreviousMomentsTestHelper(lateTests);
+            fail("No OutOfBoundsException thrown");
+        } catch (OutOfBoundsException e) {
+            // Test passes
+        }
+    }
+    
+    public void testGetNextAndPreviousMomentsForTypicalTimes() {
+        try {
+            getNextAndPreviousMomentsTestHelper(typicalTests);
+        } catch (Exception e) {
+            fail("Exception Raised");
+        }
+    }
+    
+    public void getNextAndPreviousMomentsTestHelper(List<MomentTestCase> tests) throws OutOfBoundsException {
         for (MomentTestCase test: tests) {
             Moment moment = test.getMoment();
             for (TimePeriod2 period: periods) {
@@ -42,14 +111,13 @@ public class MomentTest extends AndroidTestCase {
                 assertEquals(moment.getAbsoluteTimeInPeriod(period)+1, nextMoment.getAbsoluteTimeInPeriod(period));
                 assertEquals(moment.getAbsoluteTimeInPeriod(period)-1, previousMoment.getAbsoluteTimeInPeriod(period));
             }
-            
         }
     }
     
     public class MomentTestCase {
         private Moment moment;
         private long unixTime;
-        public MomentTestCase(long unixTime) throws Exception {
+        public MomentTestCase(long unixTime) {
             this.moment = new UnixTimeMoment(unixTime);
         }
         public Moment getMoment() {
