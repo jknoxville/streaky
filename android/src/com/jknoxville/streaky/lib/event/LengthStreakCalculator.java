@@ -58,7 +58,7 @@ public class LengthStreakCalculator implements StreakCalculator {
         Calendar startDate = log.startDate;
         int bestStreak = 0;
         int currentStreak = 0;
-        while(now.after(startDate)) {
+        while(isInSameOrLaterDay(now, startDate)) {
             if(period.eventOccursWithinPeriod(log, now)) {
                 currentStreak++;
             } else {
