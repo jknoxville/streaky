@@ -38,18 +38,19 @@ public class LengthStreakCalculator implements StreakCalculator {
     }
     
     @Override
-    public Streak getBestStreak(EventLog log, Calendar now) {
+    public Streak getBestStreak(EventLog log, Calendar endpoint) {
         Calendar startDate = log.startDate;
+        Calendar instant = endpoint;
         int bestStreak = 0;
         int currentStreak = 0;
-        while(period.isInSameOrLaterPeriod(now, startDate)) {
-            if(period.eventOccursWithinPeriod(log, now)) {
+        while(period.isInSameOrLaterPeriod(instant, startDate)) {
+            if(period.eventOccursWithinPeriod(log, instant)) {
                 currentStreak++;
             } else {
                 bestStreak = currentStreak > bestStreak ? currentStreak : bestStreak;
                 currentStreak = 0;
             }
-            period.setToPreviousPeriod(now);
+            period.setToPreviousPeriod(instant);
         }
         bestStreak = currentStreak > bestStreak ? currentStreak : bestStreak;
         
@@ -57,7 +58,7 @@ public class LengthStreakCalculator implements StreakCalculator {
     }
 
     @Override
-    public Streak getPreviousStreak(EventLog log, Calendar now) {
+    public Streak getPreviousStreak(EventLog log, Calendar endpoint) {
         // TODO Auto-generated method stub
         return null;
     }
