@@ -36,13 +36,21 @@ public class Person {
         return action;
     }
     
-    public void addUserAction(UserAction action) {
-        actions.put(action.getID(), action);
+    public void initialise(Collection<UserAction> actions) {
+        if(this.actions.size() == 0) {
+            for(UserAction action: actions) {
+                addUserAction(action);
+            }
+        }
     }
     
     public void removeUserAction(UserAction action) {
         //TODO Remove from DB or at least mark it as removed in DB
         actions.remove(action.getID());
+    }
+    
+    protected void addUserAction(UserAction action) {
+        actions.put(action.getID(), action);
     }
     
     private void validateName(String name) throws NameAlreadyExistsException {
@@ -61,14 +69,6 @@ public class Person {
             }
         }
         return actions.size();
-    }
-    
-    public void initialise(Collection<UserAction> actions) {
-        if(this.actions.size() == 0) {
-            for(UserAction action: actions) {
-                addUserAction(action);
-            }
-        }
     }
 
 }
