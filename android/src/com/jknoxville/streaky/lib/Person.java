@@ -24,8 +24,8 @@ public class Person {
         actions = new HashMap<Integer, UserAction>();
     }
     
-    public Collection<UserAction> getActions() {
-        return actions.values();
+    public Map<Integer, UserAction> getActions() {
+        return actions;
     }
     
     public UserAction getAction(int actionID) {

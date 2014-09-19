@@ -40,7 +40,7 @@ public class DashboardActivity extends Activity {
         // Invalidate all UserActionViews so they refresh
         this.userActionListView.removeAllViews();
         
-        for(UserAction action: self.getActions()) {
+        for(UserAction action: self.getActions().values()) {
             UserActionView view = new UserActionView(this, action);
             view.setOnClickListener(getOnClickListener());
             userActionListView.addView(view);
