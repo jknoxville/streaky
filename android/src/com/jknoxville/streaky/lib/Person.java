@@ -28,10 +28,6 @@ public class Person {
         return actions;
     }
     
-    public UserAction getAction(int actionID) {
-        return actions.get(actionID);
-    }
-    
     public synchronized UserAction newUserAction(String name, StreakCalculator calc, ActivityIcon icon) throws NameAlreadyExistsException {
         validateName(name);
         int id = getNextUserActionID();
