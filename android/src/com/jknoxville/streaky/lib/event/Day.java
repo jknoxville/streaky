@@ -28,4 +28,11 @@ public class Day extends TimePeriod {
         return NUM_DAYS;
     }
 
+    @Override
+    public boolean isInSameOrLaterPeriod(Calendar thisCal, Calendar thatCal) {
+        return thisCal.get(Calendar.YEAR) > thatCal.get(Calendar.YEAR)
+                || ( thisCal.get(Calendar.YEAR) == thatCal.get(Calendar.YEAR)
+                     && thisCal.get(Calendar.DAY_OF_YEAR) >= thatCal.get(Calendar.DAY_OF_YEAR) );
+    }
+
 }

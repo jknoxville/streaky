@@ -26,7 +26,7 @@ public class LengthStreakCalculator implements StreakCalculator {
         boolean inStreak = true;
         Calendar instant = endpoint;
         period.setToPreviousPeriod(instant);
-        while(inStreak && isInSameOrLaterDay(instant, log.startDate)) {
+        while(inStreak && period.isInSameOrLaterPeriod(instant, log.startDate)) {
             if(period.eventOccursWithinPeriod(log, instant)) {
                 streakLength++;
             } else {
@@ -37,35 +37,19 @@ public class LengthStreakCalculator implements StreakCalculator {
         return new Streak(streakLength, period);
     }
     
-    public StreakType getType() {
-        return type;
-    }
-    public int getPeriod() {
-        return this.period.getPeriod();
-    }
-    public StreakUnit getUnit() {
-        return this.period.getUnit();
-    }
-    
-    private boolean isInSameOrLaterDay(Calendar thisCal, Calendar thatCal) {
-        return thisCal.get(Calendar.YEAR) > thatCal.get(Calendar.YEAR)
-               || ( thisCal.get(Calendar.YEAR) == thatCal.get(Calendar.YEAR)
-                    && thisCal.get(Calendar.DAY_OF_YEAR) >= thatCal.get(Calendar.DAY_OF_YEAR) );
-    }
-
     @Override
     public Streak getBestStreak(EventLog log, Calendar now) {
         Calendar startDate = log.startDate;
         int bestStreak = 0;
         int currentStreak = 0;
-        while(isInSameOrLaterDay(now, startDate)) {
+        while(period.isInSameOrLaterPeriod(now, startDate)) {
             if(period.eventOccursWithinPeriod(log, now)) {
                 currentStreak++;
             } else {
                 bestStreak = currentStreak > bestStreak ? currentStreak : bestStreak;
                 currentStreak = 0;
             }
-            now.add(Calendar.DAY_OF_YEAR, -1);
+            period.setToPreviousPeriod(now);
         }
         bestStreak = currentStreak > bestStreak ? currentStreak : bestStreak;
         
@@ -76,6 +60,16 @@ public class LengthStreakCalculator implements StreakCalculator {
     public Streak getPreviousStreak(EventLog log, Calendar now) {
         // TODO Auto-generated method stub
         return null;
+    }
+    
+    public StreakType getType() {
+        return type;
+    }
+    public int getPeriod() {
+        return this.period.getPeriod();
+    }
+    public StreakUnit getUnit() {
+        return this.period.getUnit();
     }
 
 }

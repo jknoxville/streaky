@@ -12,5 +12,6 @@ public abstract class TimePeriod {
     public abstract void setToPreviousPeriod(Calendar cal);
     public abstract StreakUnit getUnit();
     public abstract int getPeriod();
+    public abstract boolean isInSameOrLaterPeriod(Calendar thisCal, Calendar thatCal);
 
 }
