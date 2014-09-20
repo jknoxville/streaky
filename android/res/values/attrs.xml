@@ -2,4 +2,9 @@
 <resources>
     <declare-styleable name="DashboardItemView">
    </declare-styleable>
+   <declare-styleable name="ActionView">
+       <attr name="actionName" format="string"/>
+       <attr name="currentStreak" format="integer"/>
+       <attr name="bestStreak" format="integer"/>
+   </declare-styleable>
 </resources>
