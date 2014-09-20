@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/dashboard_item"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp" >
 
     <LinearLayout
         android:id="@+id/itemTopBar"
@@ -56,7 +58,7 @@
             android:textColor="#4C4C4C"
             android:textSize="30dp" />
 
-        <TextView
+<!--         <TextView
             android:id="@+id/achievement1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -77,7 +79,7 @@
             android:background="@drawable/achievement_icon"
             android:padding="3dp"
             android:text="Best In Month"
-            android:textColor="#FCFCFC" />
+            android:textColor="#FCFCFC" /> -->
     </RelativeLayout>
 
 </LinearLayout>
