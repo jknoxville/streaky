@@ -41,7 +41,7 @@ public class DashboardActivity extends Activity {
         this.userActionListView.removeAllViews();
         
         for(UserAction action: self.getActions().values()) {
-            UserActionView view = new UserActionView(this, action);
+            ActionView view = new ActionView(this, action);
             view.setOnClickListener(getOnClickListener());
             userActionListView.addView(view);
         }
@@ -70,10 +70,15 @@ public class DashboardActivity extends Activity {
         startActivity(intent);
     }
 
-    public void onClickAction(UserActionView actionView) {
+    public void onClickAction(ActionView actionView) {
         Intent intent = new Intent(this, UserActionActivity.class);
-        intent.putExtra(Constants.USER_ACTION_ID_KEY, actionView.getUserAction().getID());
-        startActivity(intent);
+        try {
+            intent.putExtra(Constants.USER_ACTION_ID_KEY, actionView.getUserAction().getID());
+            startActivity(intent);
+        } catch (Exception e) {
+            // Do nothing - theres nowhere to go.
+            // TODO: log this
+        }
     }
 
     private OnClickListener getOnClickListener() {
@@ -82,7 +87,7 @@ public class DashboardActivity extends Activity {
 
                 @Override
                 public void onClick(View v) {
-                    onClickAction((UserActionView) v);
+                    onClickAction((ActionView) v);
                 }
             };
         }
