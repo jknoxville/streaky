@@ -9,11 +9,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jknoxville.streaky.R;
+import com.jknoxville.streaky.lib.UserAction;
 
 public class ActionView extends LinearLayout {
     
     private Context context;
-    private AttributeSet attrs;
+    private UserAction action;
+    
     private String title;
     private int currentStreak, bestStreak;
     
@@ -24,18 +26,42 @@ public class ActionView extends LinearLayout {
     private RelativeLayout content;
     private TextView currentStreakText;
     private TextView bestStreakText;
+    
+    public ActionView(Context context, UserAction action) {
+        super(context);
+        this.context = context;
+        this.action = action;
+        
+        loadAttrs(action);
+        inflateLayout();
+        updateChildViews();
+    }
 
+    // Only for design process. Needs to be initialized with a UserAction to be actually useful
     public ActionView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
-        this.attrs = attrs;
         
-        loadAttrs();
+        loadAttrs(attrs);
         inflateLayout();
         updateChildViews();
     }
     
-    private void loadAttrs() {
+    public UserAction getUserAction() throws Exception {
+        if(action != null) {
+            return action;
+        } else {
+            throw new Exception("No user action");
+        }
+    }
+    
+    private void loadAttrs(UserAction action) {
+        title = action.getName();
+        currentStreak = action.getCurrentStreak().amount;
+        bestStreak = action.getBestStreak().amount;
+    }
+    
+    private void loadAttrs(AttributeSet attrs) {
         TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.ActionView, 0, 0);
         title = a.getString(R.styleable.ActionView_actionName);
