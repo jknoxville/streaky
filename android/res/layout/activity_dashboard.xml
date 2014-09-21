@@ -18,20 +18,26 @@
         android:id="@+id/user_action_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
         android:orientation="vertical"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:animateLayoutChanges="true" >
+        android:paddingTop="@dimen/activity_vertical_margin" >
 
         <com.jknoxville.streaky.ui.ActionView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            custom:actionName="testing"
+            custom:actionName="Running"
             custom:bestStreak="34"
             custom:currentStreak="5" />
 
+        <com.jknoxville.streaky.ui.ActionView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            custom:actionName="Climbing"
+            custom:bestStreak="4"
+            custom:currentStreak="2" />
     </LinearLayout>
 
 </ScrollView>

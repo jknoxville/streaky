@@ -19,11 +19,8 @@ public class ActionView extends LinearLayout {
     private String title;
     private int currentStreak, bestStreak;
     
-    private LinearLayout root;
-    private LinearLayout topBar;
     private TextView titleText;
-    
-    private RelativeLayout content;
+
     private TextView currentStreakText;
     private TextView bestStreakText;
     
@@ -75,13 +72,17 @@ public class ActionView extends LinearLayout {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.view_action, this, true);
         
-        root = (LinearLayout) getChildAt(0);
-        topBar = (LinearLayout) root.getChildAt(0);
+        LinearLayout root = (LinearLayout) getChildAt(0);
+        LinearLayout topBar = (LinearLayout) root.getChildAt(0);
         titleText = (TextView) topBar.getChildAt(1);
         
-        content = (RelativeLayout) root.getChildAt(1);
-        currentStreakText = (TextView) content.getChildAt(0);
-        bestStreakText = (TextView) content.getChildAt(1);
+        LinearLayout content = (LinearLayout) root.getChildAt(1);
+        LinearLayout columns = (LinearLayout) content.getChildAt(0);
+        LinearLayout currentColumn = (LinearLayout) columns.getChildAt(0);
+        LinearLayout bestColumn = (LinearLayout) columns.getChildAt(1);
+        
+        currentStreakText = (TextView) currentColumn.getChildAt(1);
+        bestStreakText = (TextView) bestColumn.getChildAt(1);
     }
     
     private void updateChildViews() {
