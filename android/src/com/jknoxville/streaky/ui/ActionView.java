@@ -17,7 +17,8 @@ public class ActionView extends LinearLayout {
     private UserAction action;
     
     private String title;
-    private int currentStreak, bestStreak;
+    String currentStreak;
+    private String bestStreak;
     
     private TextView titleText;
 
@@ -54,16 +55,16 @@ public class ActionView extends LinearLayout {
     
     private void loadAttrs(UserAction action) {
         title = action.getName();
-        currentStreak = action.getCurrentStreak().amount;
-        bestStreak = action.getBestStreak().amount;
+        currentStreak = action.getCurrentStreak().toString();
+        bestStreak = action.getBestStreak().toString();
     }
     
     private void loadAttrs(AttributeSet attrs) {
         TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.ActionView, 0, 0);
         title = a.getString(R.styleable.ActionView_actionName);
-        currentStreak = a.getInt(R.styleable.ActionView_currentStreak, 0);
-        bestStreak = a.getInt(R.styleable.ActionView_bestStreak, 0);
+        currentStreak = Integer.toString(a.getInt(R.styleable.ActionView_currentStreak, 0)) + " Days";
+        bestStreak = Integer.toString(a.getInt(R.styleable.ActionView_bestStreak, 0)) + " Days";
         a.recycle();
     }
     
@@ -87,8 +88,8 @@ public class ActionView extends LinearLayout {
     
     private void updateChildViews() {
         titleText.setText(title);
-        currentStreakText.setText(currentStreak+" Days");
-        bestStreakText.setText(bestStreak+" Days");
+        currentStreakText.setText(currentStreak);
+        bestStreakText.setText(bestStreak);
     }
 
 }

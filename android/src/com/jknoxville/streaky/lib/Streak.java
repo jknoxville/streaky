@@ -18,4 +18,8 @@ public class Streak implements Comparable<Streak> {
         return -(Integer.valueOf(this.amount).compareTo(Integer.valueOf(other.amount)));
     }
     
+    public String toString() {
+        return unit.getString(amount);
+    }
+    
 }

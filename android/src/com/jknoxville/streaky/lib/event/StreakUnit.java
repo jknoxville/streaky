@@ -10,6 +10,6 @@ public enum StreakUnit {
     }
     
     public String getString(int amount) {
-        return amount == 1 ? this.singular : this.plural;
+        return Integer.toString(amount) + " " + (amount == 1 ? this.singular : this.plural);
     }
 }
