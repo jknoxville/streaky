@@ -57,6 +57,11 @@
             android:text="12 Days"
             android:textColor="#4C4C4C"
             android:textSize="30dp" />
+        
+        <com.jknoxville.streaky.ui.AchievementView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView2" />
 
 <!--         <TextView
             android:id="@+id/achievement1"

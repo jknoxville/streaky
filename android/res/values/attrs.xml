@@ -7,4 +7,7 @@
        <attr name="currentStreak" format="integer"/>
        <attr name="bestStreak" format="integer"/>
    </declare-styleable>
+      <declare-styleable name="AchievementView">
+       <attr name="achievementName" format="string"/>
+   </declare-styleable>
 </resources>
