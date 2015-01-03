@@ -14,3 +14,7 @@ android-test/gen/*
 android/libs
 android-test/libs
 
+out/
+
+.idea/*
+
