@@ -10,12 +10,10 @@ import junit.framework.TestCase;
 import com.jknoxville.streaky.lib.Streak;
 
 public class StreakCalculatorTest extends TestCase {
-    
-    private StreakCalculator calculator;
+
     private List<CalcTestCase> tests;
     
     public void setUp() throws Exception {
-        this.calculator = new LengthStreakCalculator(new Day());
         tests = new LinkedList<CalcTestCase>();
        
         tests.add(new CalcTestCase("0").setCurrentStreak(0).setBestStreak(0));
@@ -32,7 +30,7 @@ public class StreakCalculatorTest extends TestCase {
 
     public void testGetCurrentStreak() {
         for(CalcTestCase testCase: tests) {
-            Streak streak = calculator.getCurrentStreak(testCase.log, Calendar.getInstance());
+            Streak streak = testCase.calculator.getCurrentStreak(testCase.log, Calendar.getInstance());
             Assert.assertSame("Testcase: "+testCase.logString, StreakUnit.DAY, streak.unit);
             Assert.assertSame("Testcase: "+testCase.logString, testCase.currentStreak, streak.amount);
         }
@@ -40,7 +38,7 @@ public class StreakCalculatorTest extends TestCase {
 
     public void testGetBestStreak() {
         for(CalcTestCase testCase: tests) {
-            Streak streak = calculator.getBestStreak(testCase.log, Calendar.getInstance());
+            Streak streak = testCase.calculator.getBestStreak(testCase.log, Calendar.getInstance());
             Assert.assertEquals("Testcase: "+testCase.logString, StreakUnit.DAY, streak.unit);
             Assert.assertEquals("Testcase: "+testCase.logString, testCase.bestStreak, streak.amount);
         }
@@ -49,6 +47,8 @@ public class StreakCalculatorTest extends TestCase {
     // Test the case where a streak starts the day after an activity is created,
     // at a time of day that is earlier than when it was created
     public void testLateStartDateEarlyStreak() {
+
+        LengthStreakCalculator calculator = new LengthStreakCalculator(new Day());
 
         Calendar startDate = Calendar.getInstance();
         if(startDate.get(Calendar.DAY_OF_YEAR) > 360) {
@@ -74,10 +74,13 @@ public class StreakCalculatorTest extends TestCase {
         public int currentStreak;
         public int bestStreak;
         public String logString;
+        public LengthStreakCalculator calculator;
+
         public CalcTestCase(String logString) throws Exception {
             EventLog log = new MockEventLog(logString);
             this.log = log;
             this.logString = logString;
+            this.calculator = new LengthStreakCalculator(new Day());
         }
         public CalcTestCase setCurrentStreak(int expectedValue) {
             this.currentStreak = expectedValue;

@@ -4,7 +4,8 @@ package com.jknoxville.streaky.lib.event;
 public class StreakCalculatorFactory {
     
     public enum Freq {
-        DAY(new Day(), "Daily");
+        DAY(new Day(), "Daily"),
+        WEEK(new Week(), "Weekly");
         
         private TimePeriod period;
         private String friendlyName;
